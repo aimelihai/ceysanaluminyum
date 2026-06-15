@@ -7,10 +7,46 @@
   'use strict';
 
   /* ── Config ─────────────────────────────────────────────────── */
-  const API_URL     = '/api/chat';
+  const POLLINATIONS_URL = 'https://text.pollinations.ai/openai';
   const WA_URL      = 'https://wa.me/905324514233?text=Merhaba%2C%20bilgi%20almak%20istiyorum.';
   const STORAGE_KEY = 'ceysan_chat_v1';
   const MAX_MSGS    = 20; // saved in sessionStorage
+
+  const SYSTEM_PROMPT = `Sen CEYSAN Alüminyum ve PVC Doğrama Sistemleri'nin yapay zeka asistanısın. Müşterilere Türkçe yardımcı olursun.
+
+ŞİRKET BİLGİLERİ:
+- Firma: CEYSAN Alüminyum ve PVC Doğrama Sistemleri
+- Adres: Esenevler Mah. Cengiz Topel Cad. No:150/152-B, Ümraniye / İstanbul
+- Sabit: 0216 520 57 34
+- GSM / WhatsApp: 0532 451 42 33
+- E-posta: info@ceysanaluminyum.com.tr
+- Çalışma saatleri: Pazartesi–Cumartesi 08:00–18:00
+- Yetkili bayi: Pimapen PVC Sistemleri & Isıcam Sistemleri
+- 20+ yıllık deneyim, İstanbul genelinde hizmet
+
+ÜRÜN KATEGORİLERİ (12 adet):
+1. Cam Balkon – Sürme ve katlanır alüminyum cam sistemleri
+2. Giyotin Cam Balkon – Çerçevesiz, yerden tavana panoramik cam sistemi
+3. Mimari Camlar – Isıcam, lamine, temperli ve özel cam uygulamaları
+4. Estetik Cam – Dekoratif alüminyum ve cam bölücüler
+5. Pimapen PVC Pencere – Enerji tasarruflu, ısı ve ses yalıtımlı PVC pencere/kapı
+6. Alüminyum Doğrama – Alüminyum kapı, pencere ve cephe sistemleri
+7. Otomatik Pergole – Motorlu, uzaktan kumandalı gölgeleme sistemleri
+8. Panjur Sistemleri – Güneş kontrolü ve ısı yalıtımı
+9. Otomatik Kepenk – Motorlu güvenlik kepenkleri
+10. Sineklik Sistemleri – Plise, sürgülü ve sabit sineklik; ölçü ve montaj
+11. Banyo & Hijyen – Duşakabin, cam bölücü, temperli cam uygulamaları
+12. Ticari Kepenkler – İş yeri ve dükkan için çelik güvenlik kepenkleri
+
+FİYAT VE TEKLİF:
+- Kesin fiyat veremezsin, her proje ölçüye göre değişir
+- Ücretsiz keşif hizmeti öner, teklif için WhatsApp'a yönlendir: wa.me/905324514233
+
+DAVRANIŞLAR:
+- Her zaman Türkçe cevap ver
+- Kısa ve net ol — maksimum 3-4 cümle
+- Samimi, yardımsever, profesyonel
+- Yalnızca CEYSAN'ın ürün ve hizmetleri hakkında konuş`;
 
   const WELCOME = 'Merhaba! 👋 CEYSAN Alüminyum\'a hoş geldiniz. Cam balkon, PVC pencere, pergole ve daha fazlası hakkında size yardımcı olabilirim.';
 
@@ -192,17 +228,28 @@
     const $typing = showTyping();
 
     try {
-      const res = await fetch(API_URL, {
+      const history = messages
+        .filter(m => m.role && m.content)
+        .slice(-12)
+        .map(m => ({ role: m.role, content: m.content }));
+
+      const res = await fetch(POLLINATIONS_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          messages: messages.map(m => ({ role: m.role, content: m.content })),
+          model: 'openai-large',
+          max_tokens: 400,
+          messages: [
+            { role: 'system', content: SYSTEM_PROMPT },
+            ...history,
+          ],
         }),
       });
 
       if (!res.ok) throw new Error('Network error');
 
-      const { text: reply } = await res.json();
+      const data = await res.json();
+      const reply = data.choices?.[0]?.message?.content || '';
       hideTyping($typing);
       renderBotBubble(reply || 'Üzgünüm, bir hata oluştu.');
       pushHistory('assistant', reply);
