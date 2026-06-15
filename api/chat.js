@@ -1,7 +1,7 @@
 /* ================================================================
    CEYSAN AI Chat — Vercel Serverless Function
    POST /api/chat  →  { messages: [{role, content}] }
-   ENV: ANTHROPIC_API_KEY
+   ENV: SILICONFLOW_API_KEY
    ================================================================ */
 
 const SYSTEM = `Sen CEYSAN Alüminyum ve PVC Doğrama Sistemleri'nin yapay zeka asistanısın. Müşterilere Türkçe yardımcı olursun.
@@ -64,29 +64,30 @@ module.exports = async function handler(req, res) {
       .filter(m => m.role && m.content)
       .slice(-12);
 
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch('https://api.siliconflow.cn/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': process.env.ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01',
+        'Authorization': `Bearer ${process.env.SILICONFLOW_API_KEY}`,
       },
       body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
+        model: 'Qwen/Qwen2.5-7B-Instruct',
         max_tokens: 512,
-        system: SYSTEM,
-        messages: history,
+        messages: [
+          { role: 'system', content: SYSTEM },
+          ...history,
+        ],
       }),
     });
 
     if (!response.ok) {
       const err = await response.text();
-      console.error('Anthropic error:', err);
+      console.error('SiliconFlow error:', err);
       throw new Error(err);
     }
 
     const data = await response.json();
-    const text = data.content?.[0]?.text ?? '';
+    const text = data.choices?.[0]?.message?.content ?? '';
 
     return res.status(200).json({ text });
 
