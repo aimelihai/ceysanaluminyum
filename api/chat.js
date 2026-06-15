@@ -1,7 +1,7 @@
 /* ================================================================
    CEYSAN AI Chat — Vercel Serverless Function
    POST /api/chat  →  { messages: [{role, content}] }
-   ENV: SILICONFLOW_API_KEY
+   Backend: Pollinations.AI (no API key required)
    ================================================================ */
 
 const SYSTEM = `Sen CEYSAN Alüminyum ve PVC Doğrama Sistemleri'nin yapay zeka asistanısın. Müşterilere Türkçe yardımcı olursun.
@@ -64,14 +64,13 @@ module.exports = async function handler(req, res) {
       .filter(m => m.role && m.content)
       .slice(-12);
 
-    const response = await fetch('https://api.siliconflow.cn/v1/chat/completions', {
+    const response = await fetch('https://text.pollinations.ai/openai', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.SILICONFLOW_API_KEY}`,
       },
       body: JSON.stringify({
-        model: 'Qwen/Qwen2.5-7B-Instruct',
+        model: 'openai-large',
         max_tokens: 512,
         messages: [
           { role: 'system', content: SYSTEM },
@@ -82,7 +81,7 @@ module.exports = async function handler(req, res) {
 
     if (!response.ok) {
       const err = await response.text();
-      console.error('SiliconFlow error:', err);
+      console.error('Pollinations error:', err);
       throw new Error(err);
     }
 
