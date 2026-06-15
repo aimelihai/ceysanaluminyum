@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="tr-TR" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sineklik Sistemi Siparişi | CEYSAN Alüminyum</title>
+  <meta name="description" content="Sabit, sürgülü, plise ve rulo sineklik sistemleri için online sipariş formu. Ölçü girin, tip seçin — CEYSAN size ulaşsın.">
+  <link rel="canonical" href="https://ceysanaluminyum.com/sineklik-siparis.html">
+  <meta name="google-site-verification" content="8W2zWQLSbfxdXxcND7Lu2mI66VDAucY9bMRHuDDJ3KY">
+  <meta name="yandex-verification"      content="5bfc8cd82c8ac05e">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://ceysanaluminyum.com/sineklik-siparis.html">
+  <meta property="og:title"       content="Sineklik Sipariş Formu | CEYSAN Alüminyum">
+  <meta property="og:description" content="Sabit, sürgülü, plise ve rulo sineklik sistemi siparişi. Ölçülerinizi girin, tipinizi seçin — CEYSAN sizi arasın.">
+  <meta property="og:image"       content="https://ceysanaluminyum.com/images/logo.png">
+  <meta property="og:locale"      content="tr_TR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:title"       content="Sineklik Sipariş Formu | CEYSAN Alüminyum">
+  <meta name="twitter:description" content="Sabit, sürgülü, plise ve rulo sineklik. Ölçü girin, sipariş verin.">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Sineklik Sistemi Siparişi",
+    "description": "Sabit, sürgülü, plise ve rulo sineklik sistemleri üretim ve montaj hizmeti. Ölçüye göre üretim.",
+    "url": "https://ceysanaluminyum.com/sineklik-siparis.html",
+    "serviceType": "Sineklik Montajı",
+    "areaServed": {
+      "@type": "City",
+      "name": "İstanbul"
+    },
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "CEYSAN Alüminyum ve PVC Doğrama Sistemleri",
+      "url": "https://ceysanaluminyum.com",
+      "telephone": "+902165205734"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Sineklik Tipleri",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Sabit Sineklik" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Sürgülü Sineklik" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Plise Sineklik" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Rulo Sineklik" } }
+      ]
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/data.js"></script>
+  <script>document.documentElement.classList.remove('no-js');</script>
+
+  <style>
+    /* ── Sineklik Sipariş Sayfası — Özel Stiller ─────────────── */
+
+    /* Type Cards */
+    .sn-types {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 700px) {
+      .sn-types { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .sn-type-card {
+      position: relative;
+      border: 2px solid #e4eaf3;
+      border-radius: var(--r-md);
+      padding: 1.1rem .9rem .9rem;
+      cursor: pointer;
+      transition: border-color .18s, box-shadow .18s, transform .18s;
+      background: #fff;
+      text-align: center;
+      user-select: none;
+    }
+    .sn-type-card:hover {
+      border-color: var(--c-accent);
+      box-shadow: 0 4px 18px rgba(26,82,118,.14);
+      transform: translateY(-2px);
+    }
+    .sn-type-card.active {
+      border-color: var(--c-primary);
+      background: rgba(26,54,96,.04);
+      box-shadow: 0 0 0 3px rgba(26,54,96,.12);
+    }
+    .sn-type-card input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .sn-type-icon {
+      width: 52px; height: 52px;
+      margin: 0 auto .65rem;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--c-light);
+      border-radius: 12px;
+    }
+    .sn-type-card.active .sn-type-icon {
+      background: rgba(26,54,96,.1);
+    }
+    .sn-type-card.active .sn-type-icon svg {
+      stroke: var(--c-primary);
+    }
+    .sn-type-name {
+      display: block;
+      font-family: var(--ff-display);
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--c-dark);
+      margin-bottom: .18rem;
+    }
+    .sn-type-desc {
+      display: block;
+      font-size: .7rem;
+      color: var(--c-muted);
+      line-height: 1.4;
+    }
+    .sn-check-badge {
+      position: absolute;
+      top: .5rem; right: .55rem;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--c-primary);
+      display: none;
+      align-items: center; justify-content: center;
+    }
+    .sn-type-card.active .sn-check-badge { display: flex; }
+
+    /* Color Picker */
+    .sn-colors {
+      display: flex;
+      gap: .65rem;
+      flex-wrap: wrap;
+      margin-top: .5rem;
+    }
+    .sn-color-opt {
+      display: flex; flex-direction: column; align-items: center; gap: .3rem;
+      cursor: pointer;
+    }
+    .sn-color-opt input[type="radio"] {
+      position: absolute; opacity: 0; pointer-events: none;
+    }
+    .sn-color-swatch {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      box-shadow: 0 2px 6px rgba(0,0,0,.15);
+      transition: border-color .15s, transform .15s;
+    }
+    .sn-color-opt:hover .sn-color-swatch { transform: scale(1.1); }
+    .sn-color-opt.active .sn-color-swatch {
+      border-color: var(--c-primary);
+      transform: scale(1.12);
+    }
+    .sn-color-label {
+      font-size: .65rem;
+      color: var(--c-muted);
+      font-weight: 500;
+    }
+
+    /* Ölçü Tablosu */
+    .sn-dimensions-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-bottom: .75rem;
+    }
+    .sn-dimensions-table th {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--c-muted);
+      padding: .4rem .6rem;
+      text-align: left;
+      border-bottom: 1px solid #dde4ef;
+    }
+    .sn-dim-row td {
+      padding: .4rem .3rem;
+      vertical-align: middle;
+    }
+    .sn-dim-row .dim-input {
+      width: 100%;
+      padding: .5rem .6rem;
+      border: 1.5px solid #dde4ef;
+      border-radius: 6px;
+      font-size: .85rem;
+      color: var(--c-dark);
+      background: #fff;
+      transition: border-color .15s;
+      -moz-appearance: textfield;
+    }
+    .sn-dim-row .dim-input:focus {
+      outline: none;
+      border-color: var(--c-primary);
+      box-shadow: 0 0 0 3px rgba(26,54,96,.1);
+    }
+    .sn-dim-row .dim-input::-webkit-inner-spin-button,
+    .sn-dim-row .dim-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+    .sn-dim-select {
+      width: 100%;
+      padding: .5rem .6rem;
+      border: 1.5px solid #dde4ef;
+      border-radius: 6px;
+      font-size: .82rem;
+      color: var(--c-dark);
+      background: #fff;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238a9ab0' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right .55rem center;
+      padding-right: 1.8rem;
+    }
+    .sn-qty-input {
+      width: 58px;
+      padding: .5rem .4rem;
+      border: 1.5px solid #dde4ef;
+      border-radius: 6px;
+      font-size: .85rem;
+      text-align: center;
+      color: var(--c-dark);
+      -moz-appearance: textfield;
+    }
+    .sn-qty-input::-webkit-inner-spin-button,
+    .sn-qty-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+    .sn-qty-input:focus { outline: none; border-color: var(--c-primary); }
+
+    .btn-remove-row {
+      background: none; border: none; cursor: pointer;
+      color: #c0ccd8; padding: 0 2px;
+      transition: color .15s;
+      line-height: 1;
+    }
+    .btn-remove-row:hover { color: #e74c3c; }
+
+    .btn-add-row {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .8rem; font-weight: 600;
+      color: var(--c-primary);
+      background: rgba(26,54,96,.07);
+      border: 1.5px dashed rgba(26,54,96,.25);
+      border-radius: 7px;
+      padding: .45rem .85rem;
+      cursor: pointer;
+      transition: background .15s, border-color .15s;
+    }
+    .btn-add-row:hover {
+      background: rgba(26,54,96,.13);
+      border-color: var(--c-primary);
+    }
+
+    /* Section label override for light bg */
+    .sn-section-label {
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--c-primary);
+      margin-bottom: .5rem;
+      display: block;
+    }
+
+    /* Feature pills on hero */
+    .sn-hero-pills {
+      display: flex; gap: .65rem; flex-wrap: wrap; margin-top: 1.2rem;
+    }
+    .sn-hero-pill {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 20px;
+      padding: .35rem .9rem;
+      font-size: .75rem;
+      color: rgba(255,255,255,.9);
+      font-weight: 500;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Benefits mini grid */
+    .sn-benefits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+    @media (max-width: 640px) { .sn-benefits { grid-template-columns: 1fr; } }
+    .sn-benefit-card {
+      background: #fff;
+      border-radius: var(--r-md);
+      padding: 1.25rem;
+      border: 1px solid #e4eaf3;
+      text-align: center;
+    }
+    .sn-benefit-icon {
+      width: 44px; height: 44px;
+      background: rgba(26,54,96,.08);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto .75rem;
+    }
+    .sn-benefit-title {
+      font-family: var(--ff-display);
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--c-dark);
+      margin-bottom: .3rem;
+    }
+    .sn-benefit-text {
+      font-size: .78rem;
+      color: var(--c-muted);
+      line-height: 1.55;
+    }
+
+    /* WA button special */
+    .btn-wa-submit {
+      display: inline-flex; align-items: center; gap: .65rem;
+      width: 100%;
+      padding: .95rem 1.5rem;
+      background: #25D366;
+      color: #fff;
+      font-family: var(--ff-display);
+      font-size: 1rem;
+      font-weight: 800;
+      border: none;
+      border-radius: var(--r-md);
+      cursor: pointer;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 18px rgba(37,211,102,.35);
+      justify-content: center;
+      letter-spacing: .01em;
+    }
+    .btn-wa-submit:hover {
+      background: #1da851;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(37,211,102,.45);
+    }
+    .btn-wa-submit:active { transform: none; }
+
+    .form-section-divider {
+      border: none;
+      border-top: 1px solid #e8eef7;
+      margin: 1.5rem 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="header-mount"></div>
+
+  <!-- ═══ HERO ═══════════════════════════════════════════════════ -->
+  <section class="page-hero-compact" style="
+    background: radial-gradient(ellipse at 40% 0%, #1a3660 0%, #080e1c 70%);
+    padding: clamp(3rem,6vw,5rem) 0;
+    position: relative; overflow: hidden;">
+    <div style="
+      position:absolute; inset:0;
+      background-image: radial-gradient(circle at 80% 50%, rgba(26,82,118,.18) 0%, transparent 60%);
+      pointer-events:none;" aria-hidden="true"></div>
+    <div class="container" style="position:relative;z-index:1">
+      <nav class="breadcrumb" style="margin-bottom:1rem" aria-label="Breadcrumb">
+        <a href="index.html">Ana Sayfa</a>
+        <span class="sep">›</span>
+        <a href="urunler.html#sineklik-sistemleri">Sineklik Sistemleri</a>
+        <span class="sep">›</span>
+        <span class="current">Sipariş Ver</span>
+      </nav>
+      <p class="label" style="margin-bottom:.75rem;font-size:.65rem">Hızlı Sipariş Formu</p>
+      <h1 style="
+        font-family:var(--ff-display);
+        font-size:clamp(2rem,4.5vw,3.2rem);
+        font-weight:900;
+        color:#fff;
+        letter-spacing:-.03em;
+        line-height:1.1;
+        margin-bottom:.9rem">
+        Sineklik Sistemi<br>
+        <span style="color:rgba(133,193,233,.85);font-weight:700">Ölçü & Sipariş Formu</span>
+      </h1>
+      <p style="color:rgba(255,255,255,.65);font-size:.97rem;max-width:500px;line-height:1.65">
+        Ölçüleri girin, tip ve renk seçin — sizinle WhatsApp üzerinden iletişime geçelim.
+      </p>
+      <div class="sn-hero-pills">
+        <span class="sn-hero-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Ücretsiz Keşif
+        </span>
+        <span class="sn-hero-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Profesyonel Montaj
+        </span>
+        <span class="sn-hero-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Garantili Ürün
+        </span>
+        <span class="sn-hero-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          İstanbul Geneli Hizmet
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FORM SECTION ════════════════════════════════════════════ -->
+  <section class="section" style="background:var(--c-light)">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:2.5rem;align-items:start" class="grid-2">
+
+        <!-- ── Sol: Form ──────────────────────────────────────── -->
+        <div>
+          <div style="background:#fff;border-radius:var(--r-xl);padding:2rem;box-shadow:var(--sh-md)" data-reveal="up">
+
+            <!-- 1. Sineklik Tipi -->
+            <span class="sn-section-label">1 — Sineklik Tipi Seçin</span>
+            <div class="sn-types" role="radiogroup" aria-label="Sineklik tipi">
+
+              <label class="sn-type-card active" data-type="sabit">
+                <input type="radio" name="snType" value="sabit" checked>
+                <div class="sn-check-badge">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="sn-type-icon">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#566272" stroke-width="1.75">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <path d="M3 3 L21 21 M3 9 L9 3 M3 15 L15 3 M9 21 L21 9 M15 21 L21 15"/>
+                  </svg>
+                </div>
+                <span class="sn-type-name">Sabit</span>
+                <span class="sn-type-desc">Pencereye kalıcı montaj</span>
+              </label>
+
+              <label class="sn-type-card" data-type="surgulu">
+                <input type="radio" name="snType" value="surgulu">
+                <div class="sn-check-badge">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="sn-type-icon">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#566272" stroke-width="1.75">
+                    <rect x="2" y="3" width="20" height="18" rx="2"/>
+                    <line x1="12" y1="3" x2="12" y2="21"/>
+                    <polyline points="8 9 12 3 16 9"/>
+                  </svg>
+                </div>
+                <span class="sn-type-name">Sürgülü</span>
+                <span class="sn-type-desc">Yana kayar, kolay kullanım</span>
+              </label>
+
+              <label class="sn-type-card" data-type="plise">
+                <input type="radio" name="snType" value="plise">
+                <div class="sn-check-badge">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="sn-type-icon">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#566272" stroke-width="1.75">
+                    <rect x="2" y="3" width="20" height="18" rx="2"/>
+                    <line x1="6" y1="3" x2="6" y2="21"/>
+                    <line x1="10" y1="3" x2="10" y2="21"/>
+                    <line x1="14" y1="3" x2="14" y2="21"/>
+                    <line x1="18" y1="3" x2="18" y2="21"/>
+                  </svg>
+                </div>
+                <span class="sn-type-name">Plise</span>
+                <span class="sn-type-desc">Katlanır, esnek tasarım</span>
+              </label>
+
+              <label class="sn-type-card" data-type="rulo">
+                <input type="radio" name="snType" value="rulo">
+                <div class="sn-check-badge">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="sn-type-icon">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#566272" stroke-width="1.75">
+                    <rect x="2" y="3" width="20" height="18" rx="2"/>
+                    <circle cx="12" cy="5" r="1.5"/>
+                    <line x1="12" y1="6.5" x2="12" y2="21"/>
+                  </svg>
+                </div>
+                <span class="sn-type-name">Rulo</span>
+                <span class="sn-type-desc">Yukarı sarılır, minimal</span>
+              </label>
+            </div>
+
+            <hr class="form-section-divider">
+
+            <!-- 2. Ölçüler -->
+            <span class="sn-section-label" style="margin-bottom:.75rem">2 — Ölçüler (cm)</span>
+            <p style="font-size:.76rem;color:var(--c-muted);margin-bottom:.85rem;line-height:1.5">
+              Her pencere veya kapı için ayrı satır girin. Ölçüleri yaklaşık vermeniz yeterli — montaj öncesi ücretsiz yerinde ölçüm yapılır.
+            </p>
+            <table class="sn-dimensions-table">
+              <thead>
+                <tr>
+                  <th style="width:30%">Genişlik (cm)</th>
+                  <th style="width:30%">Yükseklik (cm)</th>
+                  <th style="width:24%">Konum</th>
+                  <th style="width:10%;text-align:center">Adet</th>
+                  <th style="width:6%"></th>
+                </tr>
+              </thead>
+              <tbody id="dimTableBody">
+                <tr class="sn-dim-row">
+                  <td><input class="dim-input" type="number" name="width[]" placeholder="ör. 120" min="20" max="300"></td>
+                  <td><input class="dim-input" type="number" name="height[]" placeholder="ör. 140" min="20" max="300"></td>
+                  <td>
+                    <select class="sn-dim-select" name="location[]">
+                      <option value="pencere">Pencere</option>
+                      <option value="kapi">Kapı</option>
+                      <option value="balkon">Balkon Kapısı</option>
+                      <option value="terasKapi">Teras Kapısı</option>
+                    </select>
+                  </td>
+                  <td><input class="sn-qty-input" type="number" name="qty[]" value="1" min="1" max="50"></td>
+                  <td>
+                    <button type="button" class="btn-remove-row" title="Satırı Sil" onclick="removeRow(this)">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <button type="button" class="btn-add-row" onclick="addRow()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Satır Ekle
+            </button>
+
+            <hr class="form-section-divider">
+
+            <!-- 3. Profil Rengi -->
+            <span class="sn-section-label" style="margin-bottom:.65rem">3 — Profil Rengi</span>
+            <div class="sn-colors" role="radiogroup" aria-label="Profil rengi">
+              <label class="sn-color-opt active">
+                <input type="radio" name="snColor" value="Beyaz (RAL 9010)" checked>
+                <div class="sn-color-swatch" style="background:#f5f0eb"></div>
+                <span class="sn-color-label">Beyaz</span>
+              </label>
+              <label class="sn-color-opt">
+                <input type="radio" name="snColor" value="Kahverengi (RAL 8017)">
+                <div class="sn-color-swatch" style="background:#5a3825"></div>
+                <span class="sn-color-label">Kahve</span>
+              </label>
+              <label class="sn-color-opt">
+                <input type="radio" name="snColor" value="Antrasit (RAL 7016)">
+                <div class="sn-color-swatch" style="background:#3d4347"></div>
+                <span class="sn-color-label">Antrasit</span>
+              </label>
+              <label class="sn-color-opt">
+                <input type="radio" name="snColor" value="Bej (RAL 1013)">
+                <div class="sn-color-swatch" style="background:#e4d8c2"></div>
+                <span class="sn-color-label">Bej</span>
+              </label>
+              <label class="sn-color-opt">
+                <input type="radio" name="snColor" value="Gri (RAL 7040)">
+                <div class="sn-color-swatch" style="background:#9da5a9"></div>
+                <span class="sn-color-label">Gri</span>
+              </label>
+              <label class="sn-color-opt">
+                <input type="radio" name="snColor" value="Siyah (RAL 9005)">
+                <div class="sn-color-swatch" style="background:#1a1a1a"></div>
+                <span class="sn-color-label">Siyah</span>
+              </label>
+            </div>
+
+            <hr class="form-section-divider">
+
+            <!-- 4. İletişim Bilgileri -->
+            <span class="sn-section-label" style="margin-bottom:.75rem">4 — İletişim Bilgileri</span>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.85rem">
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label" for="snName">Ad Soyad <span class="req">*</span></label>
+                <input class="form-input" type="text" id="snName" placeholder="Adınız Soyadınız" autocomplete="name">
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label" for="snPhone">Telefon <span class="req">*</span></label>
+                <input class="form-input" type="tel" id="snPhone" placeholder="05XX XXX XX XX" autocomplete="tel">
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-top:.85rem">
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label" for="snDistrict">İlçe</label>
+                <select class="form-select" id="snDistrict">
+                  <option value="">Seçiniz…</option>
+                  <option>Ümraniye</option>
+                  <option>Kadıköy</option>
+                  <option>Üsküdar</option>
+                  <option>Ataşehir</option>
+                  <option>Maltepe</option>
+                  <option>Kartal</option>
+                  <option>Pendik</option>
+                  <option>Tuzla</option>
+                  <option>Beykoz</option>
+                  <option>Şile</option>
+                  <option>Çekmeköy</option>
+                  <option>Sancaktepe</option>
+                  <option>Sultangazi</option>
+                  <option>Gaziosmanpaşa</option>
+                  <option>Eyüpsultan</option>
+                  <option>Sarıyer</option>
+                  <option>Beşiktaş</option>
+                  <option>Şişli</option>
+                  <option>Beyoğlu</option>
+                  <option>Fatih</option>
+                  <option>Bağcılar</option>
+                  <option>Bahçelievler</option>
+                  <option>Bakırköy</option>
+                  <option>Avcılar</option>
+                  <option>Küçükçekmece</option>
+                  <option>Büyükçekmece</option>
+                  <option>Esenyurt</option>
+                  <option>Diğer</option>
+                </select>
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label" for="snAddress">Mahalle / Sokak</label>
+                <input class="form-input" type="text" id="snAddress" placeholder="Opsiyonel">
+              </div>
+            </div>
+            <div class="form-group" style="margin-top:.85rem">
+              <label class="form-label" for="snNote">Ek Notlar</label>
+              <textarea class="form-textarea" id="snNote" rows="2"
+                placeholder="Ek bilgi, özel istek veya soru varsa buraya yazın…"></textarea>
+            </div>
+
+            <hr class="form-section-divider">
+
+            <!-- Submit -->
+            <div id="snValidationMsg" style="display:none;color:#e74c3c;font-size:.82rem;margin-bottom:.85rem;padding:.6rem .9rem;background:#fff5f5;border-radius:7px;border:1px solid #ffd0d0"></div>
+
+            <button type="button" class="btn-wa-submit" onclick="submitOrder()">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              WhatsApp ile Sipariş Ver
+            </button>
+            <p style="text-align:center;font-size:.72rem;color:var(--c-muted);margin-top:.6rem">
+              Sipariş bilgileriniz WhatsApp mesajı olarak hazırlanır. Ekibimiz en kısa sürede sizi arayacaktır.
+            </p>
+
+          </div><!-- /form card -->
+        </div>
+
+        <!-- ── Sağ: Bilgi Sidebar ──────────────────────────────── -->
+        <div data-reveal="right">
+
+          <!-- Ürün Görseli & Açıklama -->
+          <div style="border-radius:var(--r-lg);overflow:hidden;margin-bottom:1.5rem;box-shadow:var(--sh-md);position:relative">
+            <img src="https://ceysanaluminyum.com/resimler/urungrubu/urun_urungrubu_17307960711012101376.jpeg"
+                 alt="Sineklik Sistemi"
+                 style="width:100%;height:220px;object-fit:cover;display:block;">
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(8,14,28,.7) 0%,transparent 55%);pointer-events:none"></div>
+            <div style="position:absolute;bottom:1rem;left:1.1rem">
+              <span style="background:rgba(26,54,96,.9);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.06em;padding:.3rem .7rem;border-radius:20px;text-transform:uppercase">Sineklik Sistemleri</span>
+            </div>
+          </div>
+
+          <!-- İletişim Kartı -->
+          <div class="contact-card" style="margin-bottom:1.25rem">
+            <h3 style="font-family:var(--ff-display);font-size:.95rem;font-weight:700;margin-bottom:1.1rem;color:#fff">Hemen Bilgi Alın</h3>
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              </div>
+              <div class="contact-info-text">
+                <strong>Ceyda İnan</strong>
+                <a href="tel:05324514233">0532 451 42 33</a>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-info-icon" style="background:rgba(37,211,102,.15);color:#25D366">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              </div>
+              <div class="contact-info-text">
+                <strong>WhatsApp</strong>
+                <a href="https://api.whatsapp.com/send?phone=905324514233" target="_blank" rel="noopener">Hızlı Mesaj Gönder</a>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="contact-info-text">
+                <strong>Çalışma Saatleri</strong>
+                <span>Pzt – Cmt: 08:00 – 18:00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tip Rehberi -->
+          <div style="background:#fff;border-radius:var(--r-lg);padding:1.4rem;border:1px solid #e4eaf3">
+            <h3 style="font-family:var(--ff-display);font-size:.9rem;font-weight:700;margin-bottom:1rem;color:var(--c-dark)">Hangi Tip Size Uygun?</h3>
+            <div style="display:flex;flex-direction:column;gap:.75rem">
+              <div style="display:flex;gap:.65rem;align-items:flex-start">
+                <span style="min-width:36px;height:20px;background:rgba(26,54,96,.1);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:800;color:var(--c-primary)">SABİT</span>
+                <p style="font-size:.75rem;color:var(--c-muted);line-height:1.5;margin:0">Açılmayan veya az açılan pencereler için idealdir. En ekonomik seçenek.</p>
+              </div>
+              <div style="display:flex;gap:.65rem;align-items:flex-start">
+                <span style="min-width:36px;height:20px;background:rgba(26,54,96,.1);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:800;color:var(--c-primary);white-space:nowrap;padding:0 .4rem">SÜRGÜ</span>
+                <p style="font-size:.75rem;color:var(--c-muted);line-height:1.5;margin:0">Geniş balkon kapıları ve büyük pencereler için uygundur.</p>
+              </div>
+              <div style="display:flex;gap:.65rem;align-items:flex-start">
+                <span style="min-width:36px;height:20px;background:rgba(26,54,96,.1);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:800;color:var(--c-primary)">PLİSE</span>
+                <p style="font-size:.75rem;color:var(--c-muted);line-height:1.5;margin:0">Dar alanlarda çift yönlü açılır. Esnek ve modern görünüm.</p>
+              </div>
+              <div style="display:flex;gap:.65rem;align-items:flex-start">
+                <span style="min-width:36px;height:20px;background:rgba(26,54,96,.1);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:800;color:var(--c-primary)">RULO</span>
+                <p style="font-size:.75rem;color:var(--c-muted);line-height:1.5;margin:0">Yukarı sarılarak tamamen görünmez olur. Mimari açıdan en temiz çözüm.</p>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /sidebar -->
+      </div>
+
+      <!-- Benefits -->
+      <div class="sn-benefits">
+        <div class="sn-benefit-card">
+          <div class="sn-benefit-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <div class="sn-benefit-title">Yerinde Ücretsiz Ölçüm</div>
+          <p class="sn-benefit-text">Uzman ekibimiz gelir, tüm pencere ve kapıları tek tek ölçer. Siz sadece sipariş verin.</p>
+        </div>
+        <div class="sn-benefit-card">
+          <div class="sn-benefit-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <div class="sn-benefit-title">Hızlı Teslim & Montaj</div>
+          <p class="sn-benefit-text">Siparişiniz onaylandıktan sonra en kısa sürede üretim ve profesyonel montaj tamamlanır.</p>
+        </div>
+        <div class="sn-benefit-card">
+          <div class="sn-benefit-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--c-primary)" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <div class="sn-benefit-title">Garantili Ürün</div>
+          <p class="sn-benefit-text">Tüm sineklik sistemlerimiz garanti kapsamındadır. Sorun yaşarsanız ekibimiz yanınızda.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div id="footer-mount"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/includes.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+  /* ── Sineklik Sipariş Sayfası — Etkileşim ──────────────────── */
+
+  // Type card selection
+  document.querySelectorAll('.sn-type-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.sn-type-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      card.querySelector('input[type="radio"]').checked = true;
+    });
+  });
+
+  // Color swatch selection
+  document.querySelectorAll('.sn-color-opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      document.querySelectorAll('.sn-color-opt').forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+      opt.querySelector('input[type="radio"]').checked = true;
+    });
+  });
+
+  // Add dimension row
+  function addRow() {
+    const tbody = document.getElementById('dimTableBody');
+    const tr = document.createElement('tr');
+    tr.className = 'sn-dim-row';
+    tr.innerHTML = `
+      <td><input class="dim-input" type="number" name="width[]" placeholder="ör. 120" min="20" max="300"></td>
+      <td><input class="dim-input" type="number" name="height[]" placeholder="ör. 140" min="20" max="300"></td>
+      <td>
+        <select class="sn-dim-select" name="location[]">
+          <option value="pencere">Pencere</option>
+          <option value="kapi">Kapı</option>
+          <option value="balkon">Balkon Kapısı</option>
+          <option value="terasKapi">Teras Kapısı</option>
+        </select>
+      </td>
+      <td><input class="sn-qty-input" type="number" name="qty[]" value="1" min="1" max="50"></td>
+      <td>
+        <button type="button" class="btn-remove-row" title="Satırı Sil" onclick="removeRow(this)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </td>`;
+    tbody.appendChild(tr);
+  }
+
+  // Remove row
+  function removeRow(btn) {
+    const tbody = document.getElementById('dimTableBody');
+    if (tbody.querySelectorAll('tr').length <= 1) return; // Keep at least 1 row
+    btn.closest('tr').remove();
+  }
+
+  // Build WhatsApp message and open
+  function submitOrder() {
+    const name    = document.getElementById('snName').value.trim();
+    const phone   = document.getElementById('snPhone').value.trim();
+    const district = document.getElementById('snDistrict').value;
+    const address = document.getElementById('snAddress').value.trim();
+    const note    = document.getElementById('snNote').value.trim();
+    const msgEl   = document.getElementById('snValidationMsg');
+
+    // Validation
+    if (!name || !phone) {
+      msgEl.textContent = 'Ad Soyad ve Telefon alanları zorunludur.';
+      msgEl.style.display = 'block';
+      msgEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    msgEl.style.display = 'none';
+
+    // Collect type
+    const type = document.querySelector('input[name="snType"]:checked').value;
+    const typeLabels = { sabit: 'Sabit', surgulu: 'Sürgülü', plise: 'Plise', rulo: 'Rulo' };
+
+    // Collect color
+    const color = document.querySelector('input[name="snColor"]:checked').value;
+
+    // Collect dimensions
+    const rows   = document.querySelectorAll('#dimTableBody .sn-dim-row');
+    const locLabels = { pencere: 'Pencere', kapi: 'Kapı', balkon: 'Balkon Kapısı', terasKapi: 'Teras Kapısı' };
+    let dimLines = '';
+    let dimCount = 0;
+    rows.forEach((row, i) => {
+      const w   = row.querySelector('input[name="width[]"]').value;
+      const h   = row.querySelector('input[name="height[]"]').value;
+      const loc = row.querySelector('select[name="location[]"]').value;
+      const qty = row.querySelector('input[name="qty[]"]').value;
+      if (w && h) {
+        dimCount++;
+        dimLines += `\n  ${dimCount}. ${w}cm × ${h}cm — ${locLabels[loc] || loc} — ${qty} adet`;
+      }
+    });
+
+    if (!dimLines) {
+      msgEl.textContent = 'Lütfen en az bir ölçü girin (Genişlik ve Yükseklik).';
+      msgEl.style.display = 'block';
+      msgEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    // Build message
+    let msg = `Merhaba, CEYSAN'dan sineklik sistemi siparişi vermek istiyorum.
+
+━━━ SİPARİŞ BİLGİLERİ ━━━
+📋 Tip: ${typeLabels[type] || type}
+🎨 Profil Rengi: ${color}
+📐 Ölçüler:${dimLines}`;
+
+    if (district) msg += `\n\n━━━ TESLİMAT BİLGİLERİ ━━━\n📍 İlçe: ${district}`;
+    if (address)  msg += `\n🏠 Adres: ${address}`;
+    if (note)     msg += `\n📝 Not: ${note}`;
+
+    msg += `\n\n━━━ MÜŞTERİ BİLGİLERİ ━━━
+👤 Ad Soyad: ${name}
+📞 Telefon: ${phone}`;
+
+    const waNumber = '905324514233';
+    const url = `https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
+  </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+Disallow: /kvkk.html
+Disallow: /404.html
+
+Sitemap: https://ceysanaluminyum.com/sitemap.xml
+
+# AI assistants
+User-agent: GPTBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Googlebot-Extended
+Allow: /
