@@ -7,46 +7,153 @@
   'use strict';
 
   /* ── Config ─────────────────────────────────────────────────── */
-  const POLLINATIONS_URL = 'https://text.pollinations.ai/openai';
   const WA_URL      = 'https://wa.me/905324514233?text=Merhaba%2C%20bilgi%20almak%20istiyorum.';
   const STORAGE_KEY = 'ceysan_chat_v1';
   const MAX_MSGS    = 20; // saved in sessionStorage
 
-  const SYSTEM_PROMPT = `Sen CEYSAN Alüminyum ve PVC Doğrama Sistemleri'nin yapay zeka asistanısın. Müşterilere Türkçe yardımcı olursun.
+  /* ── Kural tabanlı yanıt motoru ─────────────────────────────── */
+  const RULES = [
+    {
+      keys: ['merhaba', 'selam', 'günaydın', 'iyi akşam', 'iyi günler', 'hay', 'hello', 'hi'],
+      replies: [
+        'Merhaba! 😊 Size nasıl yardımcı olabilirim? Cam balkon, PVC pencere, pergole veya diğer ürünlerimiz hakkında soru sorabilirsiniz.',
+        'Hoş geldiniz! CEYSAN Alüminyum olarak 20 yılı aşkın deneyimimizle hizmetinizdeyiz. Ne öğrenmek istersiniz?',
+      ],
+    },
+    {
+      keys: ['ürün', 'ne yapıyorsunuz', 'ne satıyorsunuz', 'hizmetler', 'çeşit', 'neler'],
+      replies: [
+        'Başlıca ürünlerimiz: Cam Balkon, Giyotin Cam Balkon, PVC Pencere (Pimapen bayi), Alüminyum Doğrama, Otomatik Pergole, Panjur, Kepenk, Sineklik ve Banyo Cam Uygulamaları. Detaylı bilgi için WhatsApp\'tan ulaşabilirsiniz: 0532 451 42 33 💬',
+      ],
+    },
+    {
+      keys: ['cam balkon', 'cambalkon', 'balkon cam', 'balkon kapatma'],
+      replies: [
+        'Cam balkon sistemlerimiz alüminyum profil ile sürme ya da katlanır olarak yapılmaktadır. Balkonunuzu four-seasons odaya dönüştürür, yağmur ve rüzgardan korur. Ölçü ve malzemeye göre fiyat değiştiğinden ücretsiz keşif öneriyoruz. 📞 0532 451 42 33',
+        'Cam balkon için yerinde ölçüm yapılmadan net fiyat veremiyoruz — her balkon farklıdır. Uzmanlarımız ücretsiz gelip ölçer ve teklif hazırlar. WhatsApp: 0532 451 42 33',
+      ],
+    },
+    {
+      keys: ['giyotin', 'panoramik', 'çerçevesiz'],
+      replies: [
+        'Giyotin cam balkon sistemi çerçevesizdir; paneller yukarı kalkarak tam açılır. Yerden tavana cam görünümüyle muhteşem bir estetik sunar. Ücretsiz keşif için 0532 451 42 33\'ü arayabilirsiniz.',
+      ],
+    },
+    {
+      keys: ['pimapen', 'pvc', 'pencere', 'kapı', 'doğrama', 'çift cam', 'ısı yalıtım', 'ses yalıtım'],
+      replies: [
+        'Pimapen yetkili bayisiyiz. PVC pencere ve kapılarımız ısı-ses yalıtımı konusunda üst düzey performans sunar. Enerji tasarrufu sağlar, kışın ısı kaybını minimuma indirir. Teklif için: 0532 451 42 33 📞',
+        'PVC (Pimapen) doğrama ürünlerimiz A sınıfı enerji verimliliği sunar. Sürme, kanat ve sabit pencere modellerimiz mevcuttur. Ücretsiz keşif randevusu için WhatsApp\'tan ulaşın: 0532 451 42 33',
+      ],
+    },
+    {
+      keys: ['pergole', 'tente', 'gölge', 'motorlu', 'otomatik'],
+      replies: [
+        'Otomatik pergolelerimiz uzaktan kumandalıdır; yağmur sensörü ile otomatik kapanır. Terasta veya bahçede harika bir yaşam alanı oluşturur. Detaylar için 0532 451 42 33\'ü arayın veya WhatsApp\'tan yazın.',
+      ],
+    },
+    {
+      keys: ['panjur', 'jaluzi', 'güneş', 'stor'],
+      replies: [
+        'Panjur sistemlerimiz güneş ışığını kontrol ederken ısı yalıtımı da sağlar. İçten ve dıştan motorlu modeller mevcuttur. Fiyat için ölçü gerektiğinden ücretsiz keşif talep edebilirsiniz: 0532 451 42 33',
+      ],
+    },
+    {
+      keys: ['kepenk', 'ticari', 'iş yeri', 'dükkan', 'güvenlik'],
+      replies: [
+        'Motorlu ve manuel güvenlik kepenklerimiz hem konutlar hem de ticari mekanlar için uygundur. Çelik ve alüminyum seçeneklerimiz mevcuttur. Teklif için: 0216 520 57 34 veya 0532 451 42 33',
+      ],
+    },
+    {
+      keys: ['sineklik', 'böcek', 'plise', 'sürgülü'],
+      replies: [
+        'Plise, sürgülü ve sabit sineklik modellerimiz vardır; her pencere boyutuna göre ölçülü üretilir. Montaj da tarafımızdan yapılmaktadır. Bilgi için WhatsApp: 0532 451 42 33 💬',
+      ],
+    },
+    {
+      keys: ['duşakabin', 'duş', 'banyo', 'hijyen', 'cam bölücü'],
+      replies: [
+        'Temperli cam duşakabin ve banyo cam bölücülerimiz mevcuttur. Farklı açılma sistemleri (kayar, menteşeli, sabit) sunuyoruz. Ölçülü üretim yaptığımızdan ücretsiz keşif öneririz: 0532 451 42 33',
+      ],
+    },
+    {
+      keys: ['isıcam', 'mimari cam', 'lamine', 'temperli'],
+      replies: [
+        'Isıcam sistemleri yetkili bayisiyiz. Lamine, temperli ve özel mimari cam uygulamaları da yapıyoruz. Projeniz için detaylı bilgi almak ister misiniz? 0532 451 42 33',
+      ],
+    },
+    {
+      keys: ['fiyat', 'ücret', 'para', 'maliyet', 'kadar', 'ne kadar', 'tutar', 'teklif', 'fiyatlandırma'],
+      replies: [
+        'Ürünlerimizin fiyatı ölçü, malzeme ve uygulama tipine göre farklılık gösterir. Kesin fiyat için ücretsiz keşif hizmetimizden yararlanabilirsiniz — uzmanlarımız gelir, ölçer ve net teklif hazırlar. WhatsApp: 0532 451 42 33 💬',
+        'Yerinde ölçüm yapılmadan kesin fiyat veremiyoruz. Ancak ücretsiz keşif randevusu ile net teklif alabilirsiniz. Randevu için: 0532 451 42 33 veya 0216 520 57 34',
+      ],
+    },
+    {
+      keys: ['keşif', 'randevu', 'gelin', 'bakın', 'ölçün', 'ziyaret', 'gelir misiniz'],
+      replies: [
+        'Ücretsiz keşif için WhatsApp\'tan veya telefonla ulaşabilirsiniz. Uzmanlarımız uygun bir zamanda gelip ölçüm yapar ve teklif hazırlar. 📞 0532 451 42 33 | 0216 520 57 34',
+      ],
+    },
+    {
+      keys: ['telefon', 'numara', 'ara', 'call', 'iletişim', 'ulaş', 'whatsapp', 'wp', 'yazın'],
+      replies: [
+        'Bize şu kanallardan ulaşabilirsiniz:\n📞 Sabit: 0216 520 57 34\n📱 GSM/WhatsApp: 0532 451 42 33\n✉️ E-posta: info@ceysanaluminyum.com.tr\nÇalışma saatlerimiz: Pzt–Cmt 08:00–18:00',
+      ],
+    },
+    {
+      keys: ['adres', 'konum', 'nerede', 'showroom', 'mağaza', 'ümraniye'],
+      replies: [
+        'Showroom adresimiz: Esenevler Mah. Cengiz Topel Cad. No:150/152-B, Ümraniye / İstanbul. Pazartesi–Cumartesi 08:00–18:00 saatleri arasında ziyaret edebilirsiniz. 🗺️',
+      ],
+    },
+    {
+      keys: ['saat', 'çalışma', 'açık', 'kapalı', 'kaçta', 'hafta'],
+      replies: [
+        'Çalışma saatlerimiz: Pazartesi–Cumartesi 08:00–18:00. Pazar günleri kapalıyız. 🕐',
+      ],
+    },
+    {
+      keys: ['garanti', 'sertifika', 'kalite', 'marka', 'güvence'],
+      replies: [
+        'Ürünlerimiz sertifikalı ve garantilidir. Pimapen ve Isıcam gibi köklü markaların yetkili bayisiyiz. 20+ yıllık deneyimle işçilik garantisi de veriyoruz. Detaylar için: 0532 451 42 33',
+      ],
+    },
+    {
+      keys: ['montaj', 'kurulum', 'takma', 'yerleştirme'],
+      replies: [
+        'Montaj hizmetimiz mevcuttur; profesyonel ekibimiz ürünlerinizi teslim eder ve kurar. Montaj dahil fiyat teklifi için ücretsiz keşif talep edebilirsiniz: 0532 451 42 33 📞',
+      ],
+    },
+    {
+      keys: ['teşekkür', 'sağ ol', 'tamam', 'anladım', 'oldu', 'harika', 'süper'],
+      replies: [
+        'Rica ederim! Başka bir sorunuz olursa buradayım. İyi günler! 😊',
+        'Ne zaman isterseniz yardımcı olmaktan memnuniyet duyarım. İyi günler! 🌟',
+      ],
+    },
+  ];
 
-ŞİRKET BİLGİLERİ:
-- Firma: CEYSAN Alüminyum ve PVC Doğrama Sistemleri
-- Adres: Esenevler Mah. Cengiz Topel Cad. No:150/152-B, Ümraniye / İstanbul
-- Sabit: 0216 520 57 34
-- GSM / WhatsApp: 0532 451 42 33
-- E-posta: info@ceysanaluminyum.com.tr
-- Çalışma saatleri: Pazartesi–Cumartesi 08:00–18:00
-- Yetkili bayi: Pimapen PVC Sistemleri & Isıcam Sistemleri
-- 20+ yıllık deneyim, İstanbul genelinde hizmet
+  function getLocalReply(input) {
+    const q = input.toLowerCase()
+      .replace(/[çÇ]/g, 'c').replace(/[şŞ]/g, 's').replace(/[ğĞ]/g, 'g')
+      .replace(/[üÜ]/g, 'u').replace(/[öÖ]/g, 'o').replace(/[ıİ]/g, 'i');
 
-ÜRÜN KATEGORİLERİ (12 adet):
-1. Cam Balkon – Sürme ve katlanır alüminyum cam sistemleri
-2. Giyotin Cam Balkon – Çerçevesiz, yerden tavana panoramik cam sistemi
-3. Mimari Camlar – Isıcam, lamine, temperli ve özel cam uygulamaları
-4. Estetik Cam – Dekoratif alüminyum ve cam bölücüler
-5. Pimapen PVC Pencere – Enerji tasarruflu, ısı ve ses yalıtımlı PVC pencere/kapı
-6. Alüminyum Doğrama – Alüminyum kapı, pencere ve cephe sistemleri
-7. Otomatik Pergole – Motorlu, uzaktan kumandalı gölgeleme sistemleri
-8. Panjur Sistemleri – Güneş kontrolü ve ısı yalıtımı
-9. Otomatik Kepenk – Motorlu güvenlik kepenkleri
-10. Sineklik Sistemleri – Plise, sürgülü ve sabit sineklik; ölçü ve montaj
-11. Banyo & Hijyen – Duşakabin, cam bölücü, temperli cam uygulamaları
-12. Ticari Kepenkler – İş yeri ve dükkan için çelik güvenlik kepenkleri
-
-FİYAT VE TEKLİF:
-- Kesin fiyat veremezsin, her proje ölçüye göre değişir
-- Ücretsiz keşif hizmeti öner, teklif için WhatsApp'a yönlendir: wa.me/905324514233
-
-DAVRANIŞLAR:
-- Her zaman Türkçe cevap ver
-- Kısa ve net ol — maksimum 3-4 cümle
-- Samimi, yardımsever, profesyonel
-- Yalnızca CEYSAN'ın ürün ve hizmetleri hakkında konuş`;
+    let best = null, bestScore = 0;
+    for (const rule of RULES) {
+      const score = rule.keys.reduce((s, k) => {
+        const kn = k.toLowerCase()
+          .replace(/[çÇ]/g, 'c').replace(/[şŞ]/g, 's').replace(/[ğĞ]/g, 'g')
+          .replace(/[üÜ]/g, 'u').replace(/[öÖ]/g, 'o').replace(/[ıİ]/g, 'i');
+        return s + (q.includes(kn) ? kn.length : 0);
+      }, 0);
+      if (score > bestScore) { bestScore = score; best = rule; }
+    }
+    if (best && bestScore > 0) {
+      return best.replies[Math.floor(Math.random() * best.replies.length)];
+    }
+    return 'Sorunuzu tam anlayamadım. Detaylı bilgi için WhatsApp\'tan ulaşabilirsiniz: 0532 451 42 33 💬 veya 0216 520 57 34 numaralı hattımızı arayabilirsiniz.';
+  }
 
   const WELCOME = 'Merhaba! 👋 CEYSAN Alüminyum\'a hoş geldiniz. Cam balkon, PVC pencere, pergole ve daha fazlası hakkında size yardımcı olabilirim.';
 
@@ -227,50 +334,23 @@ DAVRANIŞLAR:
     $send.disabled = true;
     const $typing = showTyping();
 
-    try {
-      const history = messages
-        .filter(m => m.role && m.content)
-        .slice(-12)
-        .map(m => ({ role: m.role, content: m.content }));
+    /* Simulate a short thinking delay then answer locally — no network needed */
+    await new Promise(r => setTimeout(r, 600 + Math.random() * 500));
 
-      const res = await fetch(POLLINATIONS_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'openai-large',
-          max_tokens: 400,
-          messages: [
-            { role: 'system', content: SYSTEM_PROMPT },
-            ...history,
-          ],
-        }),
-      });
+    hideTyping($typing);
+    const reply = getLocalReply(text);
+    renderBotBubble(reply);
+    pushHistory('assistant', reply);
 
-      if (!res.ok) throw new Error('Network error');
-
-      const data = await res.json();
-      const reply = data.choices?.[0]?.message?.content || '';
-      hideTyping($typing);
-      renderBotBubble(reply || 'Üzgünüm, bir hata oluştu.');
-      pushHistory('assistant', reply);
-
-      /* Offer WA after 3rd bot reply */
-      const botCount = messages.filter(m => m.role === 'assistant').length;
-      if (botCount === 3 && !quickDismissed) {
-        renderWaHandoff();
-      }
-
-    } catch {
-      hideTyping($typing);
-      const fallback = 'Şu an bağlanamıyorum. WhatsApp\'tan ulaşabilirsiniz: 0532 451 42 33 📱';
-      renderBotBubble(fallback);
-      pushHistory('assistant', fallback);
-
-    } finally {
-      isLoading = false;
-      $send.disabled = false;
-      $input.focus();
+    /* Offer WA after 3rd bot reply */
+    const botCount = messages.filter(m => m.role === 'assistant').length;
+    if (botCount === 3 && !quickDismissed) {
+      renderWaHandoff();
     }
+
+    isLoading = false;
+    $send.disabled = false;
+    $input.focus();
   }
 
   /* ── Bubble rendering ────────────────────────────────────────── */
