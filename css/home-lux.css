@@ -420,18 +420,11 @@ body.home-lux .hero-content {
   text-align: center;
   padding:    1.5rem 1rem;
   border-right: 1px solid rgba(255,255,255,.06);
-  opacity:    0;
-  transform:  translateY(20px);
+  opacity:    1;
+  transform:  none;
   transition: opacity .6s ease, transform .6s ease;
 }
 .lux-stat:last-child { border-right: none; }
-
-/* When intersected (via IntersectionObserver or reveal) */
-.lux-stat.revealed,
-[data-reveal].revealed .lux-stat {
-  opacity:   1;
-  transform: none;
-}
 
 .lux-stat-num {
   font-family:    var(--lux-serif);
@@ -1254,22 +1247,18 @@ body.home-lux .hero-content {
 }
 .lux-statement.is-wiping .lux-statement-lens { opacity: 1; }
 
-/* ── 15. REVEAL ANIMATIONS (CSS fallback) ────────────────────── */
-[data-reveal] {
-  opacity:    0;
-  transform:  translateY(30px);
-  transition: opacity .7s ease, transform .7s ease;
-}
-[data-reveal="left"]  { transform: translateX(30px); }
-[data-reveal="right"] { transform: translateX(-30px); }
-
+/* ── 15. REVEAL ANIMATIONS ───────────────────────────────────── */
+/* GSAP ScrollTrigger handles all reveals — no CSS opacity:0 */
+/* CSS fallback: elements visible by default, GSAP enhances */
 [data-reveal].is-visible {
   opacity:   1;
   transform: none;
 }
 
-/* GSAP will override these; CSS fallback for no-JS */
-.no-js [data-reveal] { opacity: 1; transform: none; }
+/* Reduced motion: always show */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+}
 
 /* ── 16. RESPONSIVE ──────────────────────────────────────────── */
 
