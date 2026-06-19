@@ -16,7 +16,6 @@
     // Respect prefers-reduced-motion
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) {
-      // Still register triggers but make elements visible instantly (no animation)
       gsap.utils.toArray('[data-reveal]').forEach(el => { el.style.opacity = 1; });
       gsap.utils.toArray('[data-stagger]').forEach(parent => {
         Array.from(parent.children).forEach(c => { c.style.opacity = 1; });
@@ -59,7 +58,6 @@
       });
     });
 
-    // Refresh after all content
     ScrollTrigger.refresh();
 
     // Hero parallax
@@ -77,7 +75,15 @@
       });
     }
 
-    // Hero text entrance handled by CSS @keyframes (heroFadeUp) — no GSAP needed here
+    // Statement band parallax
+    const stImgs = document.querySelectorAll('.lux-statement-img');
+    if (stImgs.length) {
+      gsap.to(stImgs, {
+        yPercent: 14,
+        ease: 'none',
+        scrollTrigger: { trigger: '.lux-statement', start: 'top bottom', end: 'bottom top', scrub: true },
+      });
+    }
 
     // Hero visual
     const heroVisual = document.querySelector('.hero-visual');
@@ -101,9 +107,8 @@
       const update = () => {
         const elapsed  = Date.now() - start;
         const progress = Math.min(elapsed / duration, 1);
-        const eased    = 1 - Math.pow(1 - progress, 3); // cubic ease-out
+        const eased    = 1 - Math.pow(1 - progress, 3);
         const current  = Math.round(eased * target);
-
         el.textContent = current.toLocaleString('tr-TR') + suffix;
         if (progress < 1) requestAnimationFrame(update);
       };
@@ -128,98 +133,177 @@
     const grid = document.getElementById('homeProductGrid');
     if (!grid) return;
 
-    const cats = CEYSAN.categories.filter(c => c.id !== 'all');
+    const items = CEYSAN.products;
 
-    // Build sidebar buttons
-    const sidebarItems = cats.map((cat, i) => {
-      const products = CEYSAN.products.filter(p => p.category === cat.id);
-      if (!products.length) return '';
-      const label  = lang === 'tr' ? cat.tr : cat.en;
-      const num    = String(i + 1).padStart(2, '0');
-      const panelId = `cex-panel-${cat.id}`;
+    const rows = items.map((p, i) => {
+      const name = lang === 'tr' ? p.tr_name : p.en_name;
+      const num = String(i + 1).padStart(2, '0');
       return `
-        <button class="cex-cat" data-cat="${cat.id}" aria-controls="${panelId}" aria-expanded="false">
-          <span class="cex-num">${num}</span>
-          <span class="cex-name">${label}</span>
-          <span class="cex-count">${products.length}</span>
-          <svg class="cex-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </button>`;
+        <a class="lux-index-row${i === 0 ? ' is-active' : ''}" href="urunler.html#${p.slug}" data-idx="${i}">
+          <span class="lux-index-n">${num}</span>
+          <span class="lux-index-name">${name}</span>
+          <span class="lux-index-count">${getCatLabel(p.category)}</span>
+          <svg class="lux-index-arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>`;
     }).join('');
 
-    // Build product panels
-    const panels = cats.map(cat => {
-      const products = CEYSAN.products.filter(p => p.category === cat.id);
-      if (!products.length) return '';
-      const label = lang === 'tr' ? cat.tr : cat.en;
-
-      const cards = products.map(p => {
-        const name = lang === 'tr' ? p.tr_name : p.en_name;
-        return `
-          <a class="cex-product" href="urunler.html#${p.slug}">
-            <div class="cex-product-img">
-              <img src="${p.image}" alt="${name}" loading="lazy"
-                   onerror="this.src='https://ceysanaluminyum.com/resimler/urungrubu/resim_yok.png'">
-            </div>
-            <div class="cex-product-name">${name}</div>
-          </a>`;
-      }).join('');
-
-      return `
-        <div class="cex-panel" id="cex-panel-${cat.id}" hidden>
-          <div class="cex-panel-hd">
-            <h3 class="cex-panel-title">${label}</h3>
-            <a href="urunler.html#cat-${cat.id}" class="cex-panel-cta">
-              Tümünü Gör
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </a>
-          </div>
-          <div class="cex-panel-grid">${cards}</div>
-        </div>`;
+    const imgs = items.map((p, i) => {
+      const name = lang === 'tr' ? p.tr_name : p.en_name;
+      return `<img class="lux-index-img${i === 0 ? ' active' : ''}" src="${p.image}" alt="${name}" loading="lazy" onerror="this.src='https://ceysanaluminyum.com/resimler/urungrubu/resim_yok.png'">`;
     }).join('');
 
+    grid.className = '';
     grid.innerHTML = `
-      <div class="cex-explorer" role="tablist">
-        <div class="cex-sidebar">${sidebarItems}</div>
-        <div class="cex-stage">
-          ${panels}
-          <div class="cex-stage-empty" id="cex-empty">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" opacity=".25"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-            <p>Kategori seçin</p>
-          </div>
+      <div class="lux-index" data-reveal="up">
+        <div class="lux-index-list">${rows}</div>
+        <div class="lux-index-visual">
+          <div class="lux-index-imgs">${imgs}</div>
+          <span class="lux-index-tag">${lang === 'tr' ? 'Ölçüye özel üretim · ücretsiz keşif' : 'Custom-made · free site survey'}</span>
         </div>
       </div>`;
 
-    // Event handlers
-    const activateCat = (btn) => {
-      const panelId = btn.getAttribute('aria-controls');
-      const isOpen  = btn.getAttribute('aria-expanded') === 'true';
+    const rowEls = grid.querySelectorAll('.lux-index-row');
+    const imgEls = grid.querySelectorAll('.lux-index-img');
+    rowEls.forEach(row => {
+      const activate = () => {
+        const idx = +row.dataset.idx;
+        rowEls.forEach(x => x.classList.remove('is-active'));
+        imgEls.forEach(x => x.classList.remove('active'));
+        row.classList.add('is-active');
+        if (imgEls[idx]) imgEls[idx].classList.add('active');
+      };
+      row.addEventListener('mouseenter', activate);
+      row.addEventListener('focus', activate);
+    });
+  }
 
-      // Deactivate all
-      grid.querySelectorAll('.cex-cat').forEach(b => b.setAttribute('aria-expanded', 'false'));
-      grid.querySelectorAll('.cex-panel').forEach(p => { p.hidden = true; });
+  function initHomeShowcase() {
+    const track = document.getElementById('homeShowcase');
+    if (!track) return;
+    const picks = CEYSAN.products.filter(p => p.image && p.image.indexOf('resim_yok') === -1).slice(0, 10);
+    track.innerHTML = picks.map((p, i) => {
+      const name = lang === 'tr' ? p.tr_name : p.en_name;
+      const cat = getCatLabel(p.category);
+      return `<a class="lux-sc-card" href="urunler.html#${p.slug}">
+          <div class="lux-sc-img"><img src="${p.image}" alt="${name}" loading="lazy" onerror="this.src='https://ceysanaluminyum.com/resimler/urungrubu/resim_yok.png'"></div>
+          <span class="lux-sc-idx">${String(i + 1).padStart(2, '0')}</span>
+          <div class="lux-sc-body">
+            <span class="lux-sc-tag">${cat}</span>
+            <h3 class="lux-sc-name">${name}</h3>
+          </div>
+        </a>`;
+    }).join('');
 
-      if (!isOpen) {
-        btn.setAttribute('aria-expanded', 'true');
-        const panel = document.getElementById(panelId);
-        if (panel) {
-          panel.hidden = false;
-          document.getElementById('cex-empty').hidden = true;
-        }
-      } else {
-        document.getElementById('cex-empty').hidden = false;
-      }
-    };
-
-    grid.querySelectorAll('.cex-cat').forEach(btn => {
-      btn.addEventListener('click', () => activateCat(btn));
-      btn.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateCat(btn); }
+    const section = track.closest('.lux-showcase');
+    if (section) section.querySelectorAll('.lux-sc-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = track.querySelector('.lux-sc-card');
+        const step = card ? card.getBoundingClientRect().width + 16 : 320;
+        track.scrollBy({ left: (+btn.dataset.dir) * step * 1.5, behavior: 'smooth' });
       });
     });
 
-    // Auto-open first category
-    const firstBtn = grid.querySelector('.cex-cat');
-    if (firstBtn) activateCat(firstBtn);
+    let down = false, moved = false, startX = 0, startScroll = 0;
+    track.addEventListener('pointerdown', e => { down = true; moved = false; startX = e.clientX; startScroll = track.scrollLeft; });
+    track.addEventListener('pointermove', e => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 4) moved = true;
+      track.scrollLeft = startScroll - dx;
+      track.classList.toggle('dragging', moved);
+    });
+    const end = () => { down = false; track.classList.remove('dragging'); };
+    track.addEventListener('pointerup', end);
+    track.addEventListener('pointerleave', end);
+    track.addEventListener('click', e => { if (moved) e.preventDefault(); }, true);
+  }
+
+  function initHeroSlides() {
+    const slides = document.querySelectorAll('.lux-hero-slide');
+    const cap = document.querySelector('.lux-hero-caption');
+    const labels = lang === 'tr'
+      ? ['Cam Balkon', 'Alüminyum Doğrama', 'Panjur Sistemleri', 'Pimapen Pencere']
+      : ['Glass Balcony', 'Aluminium Joinery', 'Roller Shutters', 'PVC Windows'];
+    function setCap(i) {
+      if (!cap) return;
+      const n = cap.querySelector('.n'), t = cap.querySelector('.t');
+      if (n) n.textContent = String(i + 1).padStart(2, '0');
+      if (t) t.textContent = labels[i] || '';
+    }
+    setCap(0);
+    if (slides.length < 2) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let i = 0;
+    setInterval(function () {
+      slides[i].classList.remove('active');
+      i = (i + 1) % slides.length;
+      slides[i].classList.add('active');
+      setCap(i);
+    }, 5200);
+  }
+
+  function initStatementWipe() {
+    const sec = document.querySelector('.lux-statement');
+    if (!sec) return;
+    const clear = sec.querySelector('.lux-statement-img--clear');
+    if (!clear) return;
+    if (window.matchMedia('(hover: none)').matches) return;
+
+    const lens = document.createElement('div');
+    lens.className = 'lux-statement-lens';
+    sec.appendChild(lens);
+
+    sec.addEventListener('pointermove', function (e) {
+      const r = clear.getBoundingClientRect();
+      clear.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      clear.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      const sr = sec.getBoundingClientRect();
+      lens.style.setProperty('--lx', (e.clientX - sr.left) + 'px');
+      lens.style.setProperty('--ly', (e.clientY - sr.top) + 'px');
+      sec.classList.add('is-wiping');
+    });
+    sec.addEventListener('pointerleave', function () {
+      sec.classList.remove('is-wiping');
+      clear.style.setProperty('--mx', '-9999px');
+      clear.style.setProperty('--my', '-9999px');
+      lens.style.setProperty('--lx', '-9999px');
+      lens.style.setProperty('--ly', '-9999px');
+    });
+  }
+
+  function initWhyGlow() {
+    const grid = document.querySelector('.why-grid');
+    if (!grid) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.matchMedia('(hover: none)').matches) return;
+    let rect = null, queued = false, lx = 0, ly = 0;
+    grid.addEventListener('pointermove', function (e) {
+      lx = e.clientX; ly = e.clientY;
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(function () {
+        queued = false;
+        if (!rect) rect = grid.getBoundingClientRect();
+        grid.style.setProperty('--gx', (lx - rect.left) + 'px');
+        grid.style.setProperty('--gy', (ly - rect.top) + 'px');
+        grid.classList.add('glow');
+      });
+    });
+    grid.addEventListener('pointerenter', function () { rect = grid.getBoundingClientRect(); });
+    grid.addEventListener('pointerleave', function () { grid.classList.remove('glow'); });
+    window.addEventListener('scroll', function () { rect = null; }, { passive: true });
+  }
+
+  /* ── Pause infinite marquees when off-screen (perf) ─────────── */
+  function initMarqueePause() {
+    if (!('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        const tr = en.target.querySelector('.lux-marquee-track, .lux-photomq-track');
+        if (tr) tr.style.animationPlayState = en.isIntersecting ? 'running' : 'paused';
+      });
+    }, { rootMargin: '120px' });
+    document.querySelectorAll('.lux-marquee, .lux-photomq').forEach(function (w) { io.observe(w); });
   }
 
   function getCatLabel(catId) {
@@ -235,14 +319,13 @@
 
     let searchQuery = '';
 
-    // Category icons map
     const catIcons = {
-      'cam':       '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="3" width="9" height="18" rx="1.5"/><rect x="13" y="3" width="9" height="18" rx="1.5"/></svg>',
-      'aluminyum': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="2" width="12" height="20" rx="2"/><circle cx="13.5" cy="12" r="1.25" fill="currentColor"/><line x1="16" y1="6" x2="21" y2="6"/><line x1="16" y1="12" x2="21" y2="12"/><line x1="16" y1="18" x2="21" y2="18"/></svg>',
-      'pvc':       '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="2" y1="12" x2="22" y2="12"/></svg>',
-      'kepenk':    '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="2" width="20" height="18" rx="2"/><path d="M2 7h20M2 12h20M2 17h20"/></svg>',
-      'dis-mekan': '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M2 8h20"/><path d="M5 8v10M19 8v10"/><path d="M5 18h14"/><line x1="8" y1="8" x2="8" y2="4"/><line x1="12" y1="8" x2="12" y2="4"/><line x1="16" y1="8" x2="16" y2="4"/></svg>',
-      'ic-mekan':  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 21V8a4 4 0 014-4h8a4 4 0 014 4v13"/><line x1="12" y1="4" x2="12" y2="21"/></svg>',
+      'cam':        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="3" width="9" height="18" rx="1.5"/><rect x="13" y="3" width="9" height="18" rx="1.5"/></svg>',
+      'aluminyum':  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="2" width="12" height="20" rx="2"/><circle cx="13.5" cy="12" r="1.25" fill="currentColor"/><line x1="16" y1="6" x2="21" y2="6"/><line x1="16" y1="12" x2="21" y2="12"/><line x1="16" y1="18" x2="21" y2="18"/></svg>',
+      'pvc':        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="2" y1="12" x2="22" y2="12"/></svg>',
+      'kepenk':     '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="2" width="20" height="18" rx="2"/><path d="M2 7h20M2 12h20M2 17h20"/></svg>',
+      'dis-mekan':  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M2 8h20"/><path d="M5 8v10M19 8v10"/><path d="M5 18h14"/><line x1="8" y1="8" x2="8" y2="4"/><line x1="12" y1="8" x2="12" y2="4"/><line x1="16" y1="8" x2="16" y2="4"/></svg>',
+      'ic-mekan':   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 21V8a4 4 0 014-4h8a4 4 0 014 4v13"/><line x1="12" y1="4" x2="12" y2="21"/></svg>',
       'endüstriyel':'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>',
     };
 
@@ -293,10 +376,9 @@
           <div class="cat-section" id="cat-${cat.id}">
             <div class="cat-section-header">
               <div class="cat-section-icon">${icon}</div>
-              <div class="cat-section-meta">
-                <h2 class="cat-section-title">${catLabel}</h2>
-                <span class="cat-section-count">${products.length} ürün</span>
-              </div>
+              <h2 class="cat-section-title">${catLabel}</h2>
+              <span class="cat-section-rule"></span>
+              <span class="cat-section-count">${products.length} ürün</span>
             </div>
             <div class="product-grid cat-product-grid">
               ${products.map(productCard).join('')}
@@ -314,7 +396,6 @@
 
       container.innerHTML = html;
 
-      // Animate
       if (window.gsap) {
         container.querySelectorAll('.product-card').forEach((el, i) => {
           gsap.from(el, { opacity: 0, y: 22, duration: .45, delay: i * 0.04, ease: 'power2.out' });
@@ -322,7 +403,6 @@
       }
     }
 
-    // Search
     if (searchIn) {
       searchIn.addEventListener('input', () => {
         searchQuery = searchIn.value.trim();
@@ -348,7 +428,6 @@
           <input type="search" id="productSearch" placeholder="Ürün ara…" aria-label="Ürün ara">
         </div>`;
 
-      // Re-bind search after innerHTML replace
       const newSearch = document.getElementById('productSearch');
       if (newSearch) {
         newSearch.addEventListener('input', () => {
@@ -357,7 +436,6 @@
       }
     }
 
-    // Handle hash anchor scroll
     if (location.hash) {
       setTimeout(() => {
         const el = document.querySelector(location.hash);
@@ -381,37 +459,39 @@
     if (!modal) return;
 
     modal.innerHTML = `
-      <div class="product-modal-inner" role="dialog" aria-modal="true" aria-label="${name}">
+      <div class="product-modal-inner lux-pm" role="dialog" aria-modal="true" aria-label="${name}">
         <button class="product-modal-close" onclick="closeProductModal()" aria-label="Kapat">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
         <div class="product-modal-img">
           <img src="${p.image}" alt="${name}"
                onerror="this.src='https://ceysanaluminyum.com/resimler/urungrubu/resim_yok.png'">
+          <span class="lux-pm-imgtag">${getCatLabel(p.category)}</span>
         </div>
         <div class="product-modal-body">
-          <span class="product-card-tag" style="margin-bottom:.75rem;display:inline-block">${getCatLabel(p.category)}</span>
-          <h2 style="font-family:var(--ff-display);font-size:1.6rem;margin-bottom:.75rem">${name}</h2>
-          <p style="color:var(--c-muted);line-height:1.7;margin-bottom:1.25rem">${desc}</p>
-          <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.75rem">
-            ${tags.map(tag => `<span class="badge badge-blue">${tag}</span>`).join('')}
+          <p class="lux-pm-eyebrow"><span class="lux-pm-rule"></span>${getCatLabel(p.category)}</p>
+          <h2 class="lux-pm-title">${name}</h2>
+          <p class="lux-pm-desc">${desc}</p>
+          <div class="lux-pm-tags">
+            ${tags.map(tag => `<span class="lux-pm-chip">${tag}</span>`).join('')}
           </div>
-          <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+          <div class="lux-pm-actions">
             ${p.id === 11
-              ? `<a href="sineklik-siparis.html" class="btn btn-primary" style="background:linear-gradient(135deg,#1a3660,#1a5276)">
+              ? `<a href="sineklik-siparis.html" class="btn btn-primary lux-pm-btn">
                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 3 L21 21 M3 9 L9 3 M3 15 L15 3 M9 21 L21 9 M15 21 L21 15"/></svg>
                    Sineklik Sipariş Ver
                  </a>`
-              : `<a href="teklif.html" class="btn btn-primary">
+              : `<a href="teklif.html" class="btn btn-primary lux-pm-btn">
                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
                    ${t('nav_quote')}
                  </a>`
             }
             <a href="https://api.whatsapp.com/send?phone=${co.wa}&text=Merhaba%2C%20${encodeURIComponent(name)}%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum."
-               class="btn btn-dark" target="_blank" rel="noopener">
+               class="btn btn-dark lux-pm-btn" target="_blank" rel="noopener">
               WhatsApp
             </a>
           </div>
+          <p class="lux-pm-note">Ölçüye özel üretim · ücretsiz keşif &amp; yerinde ölçüm</p>
         </div>
       </div>
     `;
@@ -439,7 +519,7 @@
     })));
 
     grid.innerHTML = items.map((item, i) => `
-      <div class="gallery-item ${item.span}" data-cat="${item.cat || ''}" onclick="openLightbox(${i})">
+      <div class="gallery-item lux-galp ${item.span}" data-cat="${item.cat || ''}" onclick="openLightbox(${i})">
         <img src="${item.src}"
              alt="${lang === 'tr' ? item.tr_cap : item.en_cap}"
              loading="lazy"
@@ -448,11 +528,11 @@
         <div class="gallery-overlay">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
         </div>
+        <div class="lux-galp-cap"><span>${lang === 'tr' ? item.tr_cap : item.en_cap}</span></div>
       </div>
     `).join('');
 
-    // Lightbox
-    const galleryItems = items; // capture for closure
+    const galleryItems = items;
     let currentIdx = 0;
 
     window.openLightbox = function (idx) {
@@ -476,9 +556,9 @@
     document.addEventListener('keydown', e => {
       const lb = document.getElementById('lightbox');
       if (!lb?.classList.contains('active')) return;
-      if (e.key === 'Escape')      { lb.classList.remove('active'); document.body.style.overflow = ''; }
-      if (e.key === 'ArrowRight')  { openLightbox((currentIdx + 1) % galleryItems.length); }
-      if (e.key === 'ArrowLeft')   { openLightbox((currentIdx - 1 + galleryItems.length) % galleryItems.length); }
+      if (e.key === 'Escape')     { lb.classList.remove('active'); document.body.style.overflow = ''; }
+      if (e.key === 'ArrowRight') { openLightbox((currentIdx + 1) % galleryItems.length); }
+      if (e.key === 'ArrowLeft')  { openLightbox((currentIdx - 1 + galleryItems.length) % galleryItems.length); }
     });
   }
 
@@ -488,18 +568,21 @@
     if (!grid) return;
 
     const items = CEYSAN.gallery.slice(0, 6);
-    grid.innerHTML = items.map((item, i) => `
-      <div class="gallery-item${i === 0 ? ' span-2' : ''}">
-        <img src="${item.src}"
-             alt="${lang === 'tr' ? item.tr_cap : item.en_cap}"
-             loading="lazy"
-             onload="this.classList.add('loaded')"
-             onerror="this.src='https://ceysanaluminyum.com/resimler/urungrubu/resim_yok.png';this.classList.add('loaded')">
-        <div class="gallery-overlay">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-        </div>
-      </div>
-    `).join('');
+    grid.innerHTML = items.map((item, i) => {
+      const cap = lang === 'tr' ? item.tr_cap : item.en_cap;
+      return `
+        <a class="gallery-item lux-gal${i === 0 ? ' span-2 span-row' : ''}" href="galeri.html" aria-label="${cap}">
+          <img src="${item.src}" alt="${cap}" loading="lazy"
+               onload="this.classList.add('loaded')"
+               onerror="this.src='https://ceysanaluminyum.com/resimler/urungrubu/resim_yok.png';this.classList.add('loaded')">
+          <div class="lux-gal-cap">
+            <span class="lux-gal-name">${cap}</span>
+            <span class="lux-gal-go">Görüntüle
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </div>
+        </a>`;
+    }).join('');
   }
 
   /* ── Quote Form ──────────────────────────────────────────────── */
@@ -535,28 +618,22 @@
 
     form.querySelectorAll('[data-prev]').forEach(btn => {
       btn.addEventListener('click', () => {
-        if (currentStep > 1) {
-          currentStep--;
-          showStep(currentStep);
-        }
+        if (currentStep > 1) { currentStep--; showStep(currentStep); }
       });
     });
 
-    // Populate districts
     const districtSel = document.getElementById('quoteDistrict');
     if (districtSel) {
       districtSel.innerHTML = `<option value="">İlçe seçin…</option>` +
         CEYSAN.districts.map(d => `<option value="${d}">${d}</option>`).join('');
     }
 
-    // Populate products
     const productSel = document.getElementById('quoteProduct');
     if (productSel) {
       productSel.innerHTML = `<option value="">Ürün seçin…</option>` +
         CEYSAN.products.map(p => `<option value="${p.slug}">${lang === 'tr' ? p.tr_name : p.en_name}</option>`).join('');
     }
 
-    // Submit
     form.addEventListener('submit', e => {
       e.preventDefault();
       const name  = form.querySelector('#quoteName')?.value  || '';
@@ -567,10 +644,9 @@
         return;
       }
 
-      // WhatsApp redirect
-      const product  = form.querySelector('#quoteProduct')?.value || '';
+      const product  = form.querySelector('#quoteProduct')?.value  || '';
       const district = form.querySelector('#quoteDistrict')?.value || '';
-      const note     = form.querySelector('#quoteNote')?.value || '';
+      const note     = form.querySelector('#quoteNote')?.value     || '';
 
       const msg = `Merhaba, teklif almak istiyorum.%0A` +
         `Ad: ${encodeURIComponent(name)}%0A` +
@@ -596,8 +672,8 @@
 
     contactForm.addEventListener('submit', e => {
       e.preventDefault();
-      const name    = contactForm.querySelector('#contactName')?.value || '';
-      const phone   = contactForm.querySelector('#contactPhone')?.value || '';
+      const name    = contactForm.querySelector('#contactName')?.value    || '';
+      const phone   = contactForm.querySelector('#contactPhone')?.value   || '';
       const message = contactForm.querySelector('#contactMessage')?.value || '';
 
       if (!name || !phone) {
@@ -629,6 +705,11 @@
       const key = el.dataset.i18n;
       const val = CEYSAN.i18n[lang][key];
       if (val !== undefined) el.textContent = val;
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.dataset.i18nHtml;
+      const val = CEYSAN.i18n[lang][key];
+      if (val !== undefined) el.innerHTML = val;
     });
   }
 
@@ -679,13 +760,17 @@
 
   /* ── Init All ────────────────────────────────────────────────── */
   document.addEventListener('DOMContentLoaded', () => {
-    // Set lang attribute on html
     document.documentElement.lang = lang === 'tr' ? 'tr-TR' : 'en-GB';
 
     applyTranslations();
     initMegaMenu();
+    initHeroSlides();
+    initWhyGlow();
+    initStatementWipe();
+    initMarqueePause();
     initCounters();
     initHomeProducts();
+    initHomeShowcase();
     initProductsPage();
     initGallery();
     initHomeGallery();
@@ -693,10 +778,8 @@
     initContactPage();
     initAccordions();
 
-    // GSAP after small delay (let DOM settle)
     setTimeout(initGSAP, 50);
 
-    // Product modal backdrop
     const productModal = document.getElementById('productModal');
     if (productModal) {
       productModal.addEventListener('click', e => {

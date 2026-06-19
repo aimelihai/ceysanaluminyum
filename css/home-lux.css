@@ -1,0 +1,1330 @@
+/* ================================================================
+   home-lux.css — CEYSAN Homepage Luxury Layer
+   Requires: style.css (base layer)
+   Activated by: body.home-lux
+   ================================================================ */
+
+/* ── 1. TOKEN OVERRIDES ──────────────────────────────────────────
+   Richer palette for the editorial homepage
+   ---------------------------------------------------------------- */
+body.home-lux {
+  --lux-gold:        #c9a96e;
+  --lux-gold-light:  #e8c98a;
+  --lux-gold-dark:   #9a7444;
+  --lux-ink:         #0e0c0a;
+  --lux-ink-80:      rgba(14, 12, 10, .80);
+  --lux-cream:       #f9f7f2;
+  --lux-cream-70:    rgba(249, 247, 242, .70);
+  --lux-warm:        #e8e2d6;
+  --lux-serif:       'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --lux-transition:  all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── 2. HERO ─────────────────────────────────────────────────────
+   Full-viewport cinematic hero with carousel background
+   ---------------------------------------------------------------- */
+body.home-lux .hero {
+  position:   relative;
+  min-height: 100svh;
+  display:    flex;
+  align-items: center;
+  overflow:   hidden;
+  isolation:  isolate;
+}
+
+/* Carousel slides */
+.lux-hero-slides {
+  position:   absolute;
+  inset:      0;
+  z-index:    0;
+}
+
+.lux-hero-slide {
+  position:   absolute;
+  inset:      0;
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+  object-position: center 40%;
+  opacity:    0;
+  transition: opacity 1.6s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 7s ease-out;
+  transform:  scale(1.06);
+  will-change: opacity, transform;
+}
+
+.lux-hero-slide.active {
+  opacity:   1;
+  transform: scale(1.0);
+}
+
+/* Overlay darkening */
+body.home-lux .hero-bg-overlay {
+  position:         absolute;
+  inset:            0;
+  background:       linear-gradient(
+    165deg,
+    rgba(8, 7, 5, .72) 0%,
+    rgba(8, 7, 5, .45) 50%,
+    rgba(8, 7, 5, .65) 100%
+  );
+  z-index:          1;
+}
+
+/* Content positioning */
+body.home-lux .hero-content {
+  position:  relative;
+  z-index:   3;
+  width:     100%;
+}
+
+.lux-hero-content .container {
+  display: flex;
+  align-items: center;
+}
+
+.lux-hero-text {
+  max-width:  680px;
+  padding:    clamp(5rem, 12vh, 9rem) 0 clamp(4rem, 8vh, 7rem);
+}
+
+/* ── Kicker (eyebrow label) ──────────────────────────────────── */
+.lux-kicker {
+  display:     flex;
+  align-items: center;
+  gap:         0.75rem;
+  margin-bottom: 1.25rem;
+  font-size:   0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color:       var(--lux-gold);
+}
+
+.lux-kicker-rule {
+  display:    inline-block;
+  width:      2rem;
+  height:     1px;
+  background: var(--lux-gold);
+  flex-shrink: 0;
+}
+
+.lux-kicker--light { color: var(--lux-gold-light); }
+.lux-kicker--light .lux-kicker-rule { background: var(--lux-gold-light); }
+
+/* ── Hero H1 ─────────────────────────────────────────────────── */
+.lux-h1 {
+  font-family:    var(--lux-serif);
+  font-size:      clamp(2.8rem, 6vw, 5.2rem);
+  font-weight:    400;
+  line-height:    1.08;
+  letter-spacing: -0.01em;
+  color:          #fff;
+  margin:         0 0 1.5rem;
+}
+
+.lux-h1 em {
+  font-style:  italic;
+  font-weight: 400;
+  color:       var(--lux-gold-light);
+}
+
+.lux-hero-sub {
+  font-size:   clamp(1rem, 1.8vw, 1.15rem);
+  line-height: 1.7;
+  color:       rgba(255, 255, 255, .78);
+  max-width:   520px;
+  margin:      0 0 2.25rem;
+}
+
+/* ── Hero CTA actions ────────────────────────────────────────── */
+.lux-hero-actions {
+  display:     flex;
+  align-items: center;
+  gap:         1.5rem;
+  flex-wrap:   wrap;
+  margin-bottom: 2.5rem;
+}
+
+/* Lux primary button */
+.lux-btn {
+  display:        inline-flex;
+  align-items:    center;
+  gap:            0.6rem;
+  padding:        0.85rem 2rem;
+  font-size:      0.875rem;
+  font-weight:    500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border:         none;
+  cursor:         pointer;
+  transition:     var(--lux-transition);
+}
+
+.lux-btn--primary {
+  background:   var(--lux-gold);
+  color:        var(--lux-ink);
+}
+
+.lux-btn--primary:hover {
+  background:   var(--lux-gold-light);
+  transform:    translateY(-2px);
+  box-shadow:   0 8px 24px rgba(201, 169, 110, .35);
+}
+
+.lux-btn--primary svg {
+  transition: transform 0.25s ease;
+}
+.lux-btn--primary:hover svg { transform: translateX(3px); }
+
+/* Phone call element */
+.lux-hero-call {
+  display:     flex;
+  align-items: center;
+  gap:         0.75rem;
+  text-decoration: none;
+  color:       rgba(255,255,255,.88);
+  transition:  color 0.2s ease;
+}
+.lux-hero-call:hover { color: #fff; }
+
+.lux-hero-call-ic {
+  display:     flex;
+  align-items: center;
+  justify-content: center;
+  width:       2.5rem;
+  height:      2.5rem;
+  border:      1px solid rgba(255,255,255,.25);
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition:  border-color 0.2s ease;
+}
+.lux-hero-call:hover .lux-hero-call-ic { border-color: rgba(255,255,255,.6); }
+
+.lux-hero-call-lbl {
+  display:    block;
+  font-size:  0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color:      rgba(255,255,255,.55);
+  line-height: 1;
+  margin-bottom: 2px;
+}
+.lux-hero-call-num {
+  display:     block;
+  font-size:   1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+/* ── Hero credentials ────────────────────────────────────────── */
+.lux-hero-creds {
+  display:     flex;
+  align-items: center;
+  gap:         1.25rem;
+  flex-wrap:   wrap;
+}
+
+.lux-cred { display: flex; align-items: center; gap: 0.45rem; }
+
+.lux-cred-stars {
+  font-size: 0.65rem;
+  color:     var(--lux-gold);
+  letter-spacing: 2px;
+}
+
+.lux-cred-text {
+  font-size: 0.78rem;
+  color:     rgba(255,255,255,.65);
+}
+.lux-cred-text strong { color: rgba(255,255,255,.92); font-weight: 600; }
+
+.lux-cred-div {
+  width:      1px;
+  height:     1rem;
+  background: rgba(255,255,255,.18);
+  flex-shrink: 0;
+}
+
+/* ── Decorative layers ───────────────────────────────────────── */
+.lux-hero-grain {
+  position:         absolute;
+  inset:            0;
+  z-index:          2;
+  pointer-events:   none;
+  opacity:          0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:  200px 200px;
+}
+
+.lux-hero-frame {
+  position:   absolute;
+  inset:      24px;
+  z-index:    3;
+  border:     1px solid rgba(255,255,255,.07);
+  pointer-events: none;
+}
+
+/* Side text rotated */
+.lux-hero-side {
+  position:   absolute;
+  bottom:     3rem;
+  right:      -3.2rem;
+  z-index:    3;
+  font-size:  0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color:      rgba(255,255,255,.22);
+  transform:  rotate(90deg);
+  transform-origin: bottom right;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Scroll cue */
+.lux-scroll-cue {
+  position:    absolute;
+  bottom:      2rem;
+  left:        50%;
+  transform:   translateX(-50%);
+  z-index:     4;
+  display:     flex;
+  flex-direction: column;
+  align-items: center;
+  gap:         0.5rem;
+  font-size:   0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color:       rgba(255,255,255,.38);
+  text-decoration: none;
+  transition:  color 0.2s ease;
+}
+.lux-scroll-cue:hover { color: rgba(255,255,255,.7); }
+
+.lux-scroll-line {
+  width:      1px;
+  height:     2.5rem;
+  background: linear-gradient(to bottom, rgba(255,255,255,.4), transparent);
+  animation:  scrollDrop 2.4s ease-in-out infinite;
+}
+
+@keyframes scrollDrop {
+  0%, 100% { transform: scaleY(1); opacity: .4; }
+  50%       { transform: scaleY(.6); opacity: .15; }
+}
+
+/* Caption badge */
+.lux-hero-caption {
+  position:   absolute;
+  bottom:     1.75rem;
+  right:      2rem;
+  z-index:    4;
+  display:    flex;
+  align-items: baseline;
+  gap:        0.5rem;
+  pointer-events: none;
+}
+
+.lux-hero-caption .n {
+  font-family:    var(--lux-serif);
+  font-size:      2rem;
+  font-weight:    300;
+  color:          rgba(255,255,255,.18);
+  line-height:    1;
+}
+.lux-hero-caption .t {
+  font-size:      0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color:          rgba(255,255,255,.35);
+}
+
+/* ── 3. MARQUEE ──────────────────────────────────────────────────
+   Infinite scrolling text ticker
+   ---------------------------------------------------------------- */
+.lux-marquee {
+  overflow:   hidden;
+  background: var(--lux-ink);
+  border-top: 1px solid rgba(255,255,255,.06);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  padding:    0.95rem 0;
+  white-space: nowrap;
+}
+
+.lux-marquee-track {
+  display:    inline-flex;
+  align-items: center;
+  gap:        2rem;
+  animation:  marqueeScroll 40s linear infinite;
+  will-change: transform;
+}
+
+.lux-marquee-track span {
+  font-size:      0.68rem;
+  font-weight:    500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color:          rgba(255,255,255,.45);
+}
+
+.lux-marquee-track i {
+  font-style:   normal;
+  font-size:    0.45rem;
+  color:        var(--lux-gold);
+  flex-shrink:  0;
+}
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── 4. STATS ────────────────────────────────────────────────────
+   Numbers that count up on scroll
+   ---------------------------------------------------------------- */
+.lux-stats {
+  background: var(--lux-ink);
+  padding:    4rem 0 4.5rem;
+}
+
+.lux-stats-head {
+  text-align:    center;
+  margin-bottom: 3rem;
+}
+
+.lux-stats-eyebrow {
+  display:     inline-flex;
+  align-items: center;
+  gap:         0.75rem;
+  font-size:   0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color:       rgba(255,255,255,.35);
+}
+
+.lux-stats-eyebrow .r {
+  display:    inline-block;
+  width:      1.5rem;
+  height:     1px;
+  background: rgba(255,255,255,.15);
+}
+
+.lux-stats-row {
+  display:   grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:       2px;
+}
+
+.lux-stat {
+  text-align: center;
+  padding:    1.5rem 1rem;
+  border-right: 1px solid rgba(255,255,255,.06);
+  opacity:    0;
+  transform:  translateY(20px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.lux-stat:last-child { border-right: none; }
+
+/* When intersected (via IntersectionObserver or reveal) */
+.lux-stat.revealed,
+[data-reveal].revealed .lux-stat {
+  opacity:   1;
+  transform: none;
+}
+
+.lux-stat-num {
+  font-family:    var(--lux-serif);
+  font-size:      clamp(2.8rem, 5vw, 4rem);
+  font-weight:    300;
+  line-height:    1;
+  color:          #fff;
+  margin-bottom:  0.35rem;
+  display:        flex;
+  align-items:    baseline;
+  justify-content: center;
+  gap:            0.1rem;
+}
+
+.lux-stat-num i {
+  font-style:  normal;
+  font-size:   0.55em;
+  color:       var(--lux-gold);
+  margin-left: 1px;
+}
+
+.lux-stat-lbl {
+  font-size:      0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color:          rgba(255,255,255,.38);
+}
+
+/* ── 5. PRODUCT SHOWCASE ─────────────────────────────────────────
+   Horizontal scroll strip of product cards
+   ---------------------------------------------------------------- */
+.lux-showcase {
+  padding:    4rem 0;
+  background: var(--lux-cream);
+  overflow:   hidden;
+}
+
+.lux-sc-head {
+  display:        flex;
+  justify-content: space-between;
+  align-items:    flex-end;
+  margin-bottom:  2rem;
+  gap:            1rem;
+}
+
+.lux-sc-nav {
+  display: flex;
+  gap:     0.5rem;
+  flex-shrink: 0;
+}
+
+.lux-sc-btn {
+  display:     flex;
+  align-items: center;
+  justify-content: center;
+  width:       2.5rem;
+  height:      2.5rem;
+  border:      1px solid rgba(0,0,0,.15);
+  background:  transparent;
+  cursor:      pointer;
+  transition:  var(--lux-transition);
+  color:       var(--lux-ink);
+}
+
+.lux-sc-btn:hover {
+  background:    var(--lux-ink);
+  color:         #fff;
+  border-color:  var(--lux-ink);
+}
+
+/* Scrolling track — no native scrollbar, drag-enabled */
+.lux-sc-track {
+  display:          flex;
+  gap:              1.25rem;
+  overflow-x:       auto;
+  scroll-snap-type: x mandatory;
+  padding:          0 var(--container-pad, 1.5rem) 1rem;
+  cursor:           grab;
+  scrollbar-width:  none;
+  -ms-overflow-style: none;
+}
+.lux-sc-track::-webkit-scrollbar { display: none; }
+.lux-sc-track.dragging { cursor: grabbing; }
+
+.lux-sc-card {
+  flex-shrink:     0;
+  width:           clamp(240px, 28vw, 320px);
+  scroll-snap-align: start;
+  text-decoration: none;
+  color:           inherit;
+  position:        relative;
+  display:         flex;
+  flex-direction:  column;
+  background:      #fff;
+  overflow:        hidden;
+  transition:      transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.lux-sc-card:hover {
+  transform:  translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,.1);
+}
+
+.lux-sc-img {
+  aspect-ratio: 4/3;
+  overflow:     hidden;
+}
+.lux-sc-img img {
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+  transition: transform 0.55s ease;
+}
+.lux-sc-card:hover .lux-sc-img img { transform: scale(1.05); }
+
+.lux-sc-idx {
+  position:    absolute;
+  top:         0.75rem;
+  right:       0.75rem;
+  font-family: var(--lux-serif);
+  font-size:   1.25rem;
+  font-weight: 300;
+  color:       rgba(255,255,255,.55);
+  line-height: 1;
+}
+
+.lux-sc-body {
+  padding:         0.9rem 1rem 1.1rem;
+  display:         flex;
+  flex-direction:  column;
+  gap:             0.3rem;
+}
+
+.lux-sc-tag {
+  font-size:      0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color:          var(--lux-gold-dark);
+}
+
+.lux-sc-name {
+  font-family: var(--lux-serif);
+  font-size:   1.15rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color:       var(--lux-ink);
+  margin:      0;
+}
+
+/* ── 6. PROCESS ──────────────────────────────────────────────────
+   4-step numbered process row
+   ---------------------------------------------------------------- */
+.lux-process {
+  padding:    5rem 0;
+  background: #fff;
+}
+
+.lux-process-row {
+  display:    grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:        2px;
+  margin-top: 3rem;
+  border:     1px solid rgba(0,0,0,.07);
+}
+
+.lux-step {
+  padding:      2rem 1.5rem 2rem;
+  border-right: 1px solid rgba(0,0,0,.07);
+  position:     relative;
+}
+.lux-step:last-child { border-right: none; }
+
+.lux-step-n {
+  font-family:    var(--lux-serif);
+  font-size:      3rem;
+  font-weight:    300;
+  line-height:    1;
+  color:          rgba(0,0,0,.08);
+  display:        block;
+  margin-bottom:  1rem;
+}
+
+.lux-step h3 {
+  font-size:   1.05rem;
+  font-weight: 600;
+  color:       var(--lux-ink);
+  margin:      0 0 0.6rem;
+}
+
+.lux-step p {
+  font-size:   0.88rem;
+  line-height: 1.65;
+  color:       rgba(0,0,0,.52);
+  margin:      0;
+}
+
+/* ── 7. STATEMENT BAND ───────────────────────────────────────────
+   Full-width parallax manifesto section
+   ---------------------------------------------------------------- */
+.lux-statement {
+  position:   relative;
+  overflow:   hidden;
+  isolation:  isolate;
+  padding:    7rem 0;
+}
+
+.lux-statement-bg {
+  position:   absolute;
+  inset:      -10%;
+  z-index:    0;
+}
+
+.lux-statement-img {
+  width:      100%;
+  height:     120%;
+  object-fit: cover;
+  object-position: center;
+  filter:     brightness(0.32) saturate(0.6);
+  will-change: transform;
+}
+
+.lux-statement-inner {
+  position:   relative;
+  z-index:    1;
+  text-align: center;
+  max-width:  640px;
+  margin:     0 auto;
+}
+
+.lux-statement-kicker {
+  display:        flex;
+  align-items:    center;
+  justify-content: center;
+  gap:            0.75rem;
+  font-size:      0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color:          var(--lux-gold);
+  margin-bottom:  1.5rem;
+}
+
+.lux-statement-h {
+  font-family:    var(--lux-serif);
+  font-size:      clamp(2rem, 4.5vw, 3.5rem);
+  font-weight:    300;
+  line-height:    1.2;
+  color:          #fff;
+  margin:         0;
+}
+
+.lux-statement-h em {
+  font-style: italic;
+  color:      var(--lux-gold-light);
+}
+
+/* ── 8. WHY CEYSAN ───────────────────────────────────────────────
+   Bold manifesto grid with glow interaction
+   ---------------------------------------------------------------- */
+.why-ceysan {
+  background: var(--lux-ink);
+  padding:    5.5rem 0;
+}
+
+.why-ceysan-header {
+  text-align:    center;
+  margin-bottom: 3.5rem;
+}
+
+.why-label {
+  font-size:      0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color:          var(--lux-gold) !important;
+  margin-bottom:  0.75rem !important;
+}
+
+.why-title {
+  font-family:    var(--lux-serif);
+  font-size:      clamp(2rem, 4vw, 3rem);
+  font-weight:    300;
+  color:          #fff;
+  margin:         0 0 0.75rem;
+}
+
+.why-subtitle {
+  font-size:   1rem;
+  line-height: 1.65;
+  color:       rgba(255,255,255,.45);
+  max-width:   480px;
+  margin:      0 auto;
+}
+
+.why-grid {
+  display:               grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:                   1px;
+  background:            rgba(255,255,255,.05);
+  position:              relative;
+  --gx: 50%;
+  --gy: 50%;
+}
+
+.why-grid.glow::before {
+  content:    '';
+  position:   absolute;
+  inset:      0;
+  background: radial-gradient(300px circle at var(--gx) var(--gy), rgba(201,169,110,.07), transparent 70%);
+  pointer-events: none;
+  z-index:    0;
+}
+
+.why-card {
+  padding:          2.5rem 2rem;
+  background:       var(--lux-ink);
+  position:         relative;
+  z-index:          1;
+  transition:       background 0.3s ease;
+}
+.why-card:hover { background: rgba(255,255,255,.025); }
+
+.why-card-num {
+  font-family:    var(--lux-serif);
+  font-size:      3rem;
+  font-weight:    300;
+  color:          rgba(255,255,255,.06);
+  line-height:    1;
+  margin-bottom:  1.25rem;
+}
+
+.why-card-title {
+  font-size:   1.1rem;
+  font-weight: 600;
+  color:       #fff;
+  margin:      0 0 0.8rem;
+}
+
+.why-card-desc {
+  font-size:   0.9rem;
+  line-height: 1.7;
+  color:       rgba(255,255,255,.45);
+  margin:      0;
+}
+
+/* ── 9. GALLERY ITEMS (lux variant) ─────────────────────────────
+   Used in gallery grid and homepage preview
+   ---------------------------------------------------------------- */
+.lux-galp {
+  position:   relative;
+  overflow:   hidden;
+  cursor:     pointer;
+}
+
+.lux-galp img {
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  opacity:    0;
+}
+.lux-galp img.loaded { opacity: 1; }
+.lux-galp:hover img  { transform: scale(1.04); }
+
+.lux-galp-cap {
+  position:   absolute;
+  inset:      0;
+  display:    flex;
+  align-items: flex-end;
+  padding:    1rem;
+  background: linear-gradient(to top, rgba(0,0,0,.6) 0%, transparent 55%);
+  opacity:    0;
+  transition: opacity 0.3s ease;
+}
+.lux-galp:hover .lux-galp-cap { opacity: 1; }
+
+.lux-galp-cap span {
+  font-size:   0.78rem;
+  font-weight: 500;
+  color:       #fff;
+  letter-spacing: 0.04em;
+}
+
+/* Homepage gallery (simpler, always-visible captions) */
+.lux-gal {
+  position:    relative;
+  overflow:    hidden;
+  display:     block;
+  text-decoration: none;
+}
+
+.lux-gal img {
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  opacity:    0;
+  display:    block;
+}
+.lux-gal img.loaded { opacity: 1; }
+.lux-gal:hover img  { transform: scale(1.04); }
+
+.lux-gal-cap {
+  position:   absolute;
+  inset:      0;
+  display:    flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding:    1.25rem;
+  background: linear-gradient(to top, rgba(0,0,0,.65) 0%, transparent 60%);
+}
+
+.lux-gal-name {
+  font-family: var(--lux-serif);
+  font-size:   1.05rem;
+  font-weight: 400;
+  color:       #fff;
+}
+
+.lux-gal-go {
+  display:     flex;
+  align-items: center;
+  gap:         0.35rem;
+  font-size:   0.7rem;
+  letter-spacing: 0.1em;
+  color:       rgba(255,255,255,.6);
+  text-transform: uppercase;
+  transition:  color 0.2s ease;
+}
+.lux-gal:hover .lux-gal-go { color: var(--lux-gold-light); }
+
+/* ── 10. CTA SECTION ─────────────────────────────────────────────
+   Full-width dark CTA with background image
+   ---------------------------------------------------------------- */
+.cta-section {
+  position:  relative;
+  overflow:  hidden;
+  padding:   5.5rem 0;
+  isolation: isolate;
+}
+
+.cta-section-bg {
+  position: absolute;
+  inset:    0;
+  z-index:  0;
+}
+
+.cta-section-bg img {
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+  object-position: center;
+  filter:     brightness(0.2) saturate(0.5);
+}
+
+.cta-inner {
+  position:        relative;
+  z-index:         1;
+  display:         flex;
+  justify-content: space-between;
+  align-items:     center;
+  gap:             3rem;
+  flex-wrap:       wrap;
+}
+
+.lux-cta-eyebrow {
+  font-size:      0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color:          var(--lux-gold);
+  margin-bottom:  0.75rem;
+}
+
+.cta-text h2 {
+  font-family: var(--lux-serif);
+  font-size:   clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 300;
+  color:       #fff;
+  margin:      0 0 0.5rem;
+}
+
+.cta-text p {
+  font-size:   1rem;
+  color:       rgba(255,255,255,.6);
+  margin:      0;
+}
+
+.cta-actions {
+  display:  flex;
+  gap:      1rem;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+/* ── 11. PRODUCT INDEX (lux-index) ───────────────────────────────
+   Homepage product list with hover image preview
+   ---------------------------------------------------------------- */
+.lux-index {
+  display:    grid;
+  grid-template-columns: 1fr 38%;
+  gap:        3px;
+  min-height: 540px;
+}
+
+.lux-index-list {
+  background: var(--lux-cream);
+  display:    flex;
+  flex-direction: column;
+}
+
+.lux-index-row {
+  display:         flex;
+  align-items:     center;
+  gap:             1.25rem;
+  padding:         1rem 1.5rem;
+  text-decoration: none;
+  color:           inherit;
+  border-bottom:   1px solid rgba(0,0,0,.06);
+  position:        relative;
+  transition:      background 0.2s ease;
+  cursor:          pointer;
+}
+.lux-index-row:last-child  { border-bottom: none; }
+.lux-index-row:hover,
+.lux-index-row.is-active   { background: #fff; }
+
+.lux-index-row.is-active::before {
+  content:    '';
+  position:   absolute;
+  left:       0;
+  top:        0;
+  bottom:     0;
+  width:      3px;
+  background: var(--lux-gold);
+}
+
+.lux-index-n {
+  font-family:    var(--lux-serif);
+  font-size:      1.1rem;
+  font-weight:    300;
+  color:          rgba(0,0,0,.2);
+  min-width:      1.8rem;
+  flex-shrink:    0;
+  line-height:    1;
+}
+
+.lux-index-row.is-active .lux-index-n { color: var(--lux-gold-dark); }
+
+.lux-index-name {
+  font-size:   0.9rem;
+  font-weight: 500;
+  color:       var(--lux-ink);
+  flex:        1;
+}
+
+.lux-index-count {
+  font-size:      0.68rem;
+  letter-spacing: 0.08em;
+  color:          rgba(0,0,0,.35);
+  text-transform: uppercase;
+}
+
+.lux-index-arrow {
+  color:      rgba(0,0,0,.18);
+  transition: transform 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+}
+.lux-index-row:hover .lux-index-arrow,
+.lux-index-row.is-active .lux-index-arrow {
+  transform: translateX(3px);
+  color:     var(--lux-gold-dark);
+}
+
+/* Visual panel (right side) */
+.lux-index-visual {
+  position:   relative;
+  overflow:   hidden;
+  background: rgba(0,0,0,.04);
+}
+
+.lux-index-imgs {
+  position: absolute;
+  inset:    0;
+}
+
+.lux-index-img {
+  position:   absolute;
+  inset:      0;
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+  object-position: center;
+  opacity:    0;
+  transition: opacity 0.4s ease;
+}
+.lux-index-img.active { opacity: 1; }
+
+.lux-index-tag {
+  position:    absolute;
+  bottom:      1rem;
+  left:        1rem;
+  right:       1rem;
+  font-size:   0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color:       rgba(255,255,255,.55);
+  z-index:     1;
+  background:  rgba(0,0,0,.25);
+  padding:     0.35rem 0.6rem;
+  backdrop-filter: blur(4px);
+}
+
+/* ── 12. PRODUCT MODAL (lux-pm) ──────────────────────────────────
+   Refined modal for product detail
+   ---------------------------------------------------------------- */
+.product-modal-backdrop.active {
+  display:    flex;
+  position:   fixed;
+  inset:      0;
+  z-index:    9000;
+  background: rgba(0,0,0,.65);
+  backdrop-filter: blur(6px);
+  align-items:    center;
+  justify-content: center;
+  padding:        1rem;
+  animation:  fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.lux-pm {
+  background:    #fff;
+  max-width:     760px;
+  width:         100%;
+  max-height:    90vh;
+  overflow-y:    auto;
+  display:       grid;
+  grid-template-columns: 1fr 1fr;
+  position:      relative;
+  animation:     pmSlide 0.3s ease;
+}
+
+@keyframes pmSlide {
+  from { transform: translateY(16px); opacity: 0; }
+  to   { transform: none;             opacity: 1; }
+}
+
+.product-modal-close {
+  position:   absolute;
+  top:        0.75rem;
+  right:      0.75rem;
+  z-index:    1;
+  background: rgba(0,0,0,.07);
+  border:     none;
+  width:      2rem;
+  height:     2rem;
+  display:    flex;
+  align-items: center;
+  justify-content: center;
+  cursor:     pointer;
+  color:      #fff;
+  transition: background 0.2s ease;
+}
+.product-modal-close:hover { background: rgba(0,0,0,.25); }
+
+.product-modal-img {
+  position:    relative;
+  min-height:  320px;
+  overflow:    hidden;
+}
+.product-modal-img img {
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+}
+
+.lux-pm-imgtag {
+  position:       absolute;
+  bottom:         1rem;
+  left:           1rem;
+  font-size:      0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color:          rgba(255,255,255,.75);
+  background:     rgba(0,0,0,.35);
+  padding:        0.3rem 0.6rem;
+  backdrop-filter: blur(4px);
+}
+
+.product-modal-body {
+  padding:          1.75rem;
+  display:          flex;
+  flex-direction:   column;
+  gap:              0.9rem;
+  overflow-y:       auto;
+}
+
+.lux-pm-eyebrow {
+  display:        flex;
+  align-items:    center;
+  gap:            0.5rem;
+  font-size:      0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color:          var(--lux-gold-dark);
+  margin:         0;
+}
+
+.lux-pm-rule {
+  display:    inline-block;
+  width:      1.5rem;
+  height:     1px;
+  background: var(--lux-gold);
+  flex-shrink: 0;
+}
+
+.lux-pm-title {
+  font-family: var(--lux-serif);
+  font-size:   1.8rem;
+  font-weight: 400;
+  line-height: 1.15;
+  color:       var(--lux-ink);
+  margin:      0;
+}
+
+.lux-pm-desc {
+  font-size:   0.88rem;
+  line-height: 1.7;
+  color:       rgba(0,0,0,.55);
+  margin:      0;
+}
+
+.lux-pm-tags {
+  display:  flex;
+  flex-wrap: wrap;
+  gap:      0.4rem;
+}
+
+.lux-pm-chip {
+  font-size:   0.68rem;
+  padding:     0.25rem 0.6rem;
+  background:  rgba(0,0,0,.05);
+  color:       rgba(0,0,0,.55);
+  letter-spacing: 0.04em;
+}
+
+.lux-pm-actions {
+  display:  flex;
+  gap:      0.75rem;
+  flex-wrap: wrap;
+}
+
+.lux-pm-btn {
+  font-size: 0.82rem !important;
+  padding:   0.65rem 1.25rem !important;
+}
+
+.lux-pm-note {
+  font-size:   0.7rem;
+  color:       rgba(0,0,0,.3);
+  margin:      auto 0 0;
+  padding-top: 0.5rem;
+  border-top:  1px solid rgba(0,0,0,.06);
+}
+
+/* ── 13. PHOTO MARQUEE ───────────────────────────────────────────
+   Infinite horizontal photo strip
+   ---------------------------------------------------------------- */
+.lux-photomq {
+  overflow:   hidden;
+  height:     220px;
+  background: var(--lux-ink);
+}
+
+.lux-photomq-track {
+  display:   flex;
+  gap:       3px;
+  height:    100%;
+  animation: photomqScroll 50s linear infinite;
+  will-change: transform;
+}
+
+.lux-photomq-item {
+  flex-shrink: 0;
+  width:       clamp(200px, 22vw, 300px);
+  height:      100%;
+  overflow:    hidden;
+}
+
+.lux-photomq-item img {
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+  object-position: center;
+  filter:     brightness(0.75) saturate(0.8);
+  transition: filter 0.4s ease;
+}
+
+.lux-photomq-item:hover img { filter: brightness(0.95) saturate(1); }
+
+@keyframes photomqScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── 14. STATEMENT WIPE (interactive effect) ─────────────────── */
+.lux-statement-lens {
+  position:   absolute;
+  width:      120px;
+  height:     120px;
+  border:     1px solid rgba(255,255,255,.15);
+  border-radius: 50%;
+  top:        calc(var(--ly, -999px) - 60px);
+  left:       calc(var(--lx, -999px) - 60px);
+  pointer-events: none;
+  z-index:    2;
+  transition: opacity 0.2s ease;
+  opacity:    0;
+}
+.lux-statement.is-wiping .lux-statement-lens { opacity: 1; }
+
+/* ── 15. REVEAL ANIMATIONS (CSS fallback) ────────────────────── */
+[data-reveal] {
+  opacity:    0;
+  transform:  translateY(30px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+[data-reveal="left"]  { transform: translateX(30px); }
+[data-reveal="right"] { transform: translateX(-30px); }
+
+[data-reveal].is-visible {
+  opacity:   1;
+  transform: none;
+}
+
+/* GSAP will override these; CSS fallback for no-JS */
+.no-js [data-reveal] { opacity: 1; transform: none; }
+
+/* ── 16. RESPONSIVE ──────────────────────────────────────────── */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .lux-stats-row { grid-template-columns: repeat(2, 1fr); gap: 1px; }
+  .lux-stat { border-right: 1px solid rgba(255,255,255,.06); }
+  .lux-stat:nth-child(2n) { border-right: none; }
+
+  .lux-process-row { grid-template-columns: repeat(2, 1fr); }
+  .lux-step:nth-child(2n) { border-right: none; }
+
+  .why-grid { grid-template-columns: 1fr; }
+
+  .lux-index { grid-template-columns: 1fr; }
+  .lux-index-visual { display: none; }
+
+  .cta-inner { flex-direction: column; text-align: center; }
+  .cta-actions { justify-content: center; }
+
+  .lux-pm { grid-template-columns: 1fr; }
+  .product-modal-img { min-height: 220px; }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .lux-hero-frame { inset: 12px; }
+  .lux-hero-side  { display: none; }
+
+  .lux-hero-actions { flex-direction: column; align-items: flex-start; gap: 1rem; }
+
+  .lux-stats-row    { grid-template-columns: repeat(2, 1fr); }
+  .lux-sc-head      { flex-direction: column; align-items: flex-start; }
+  .lux-process-row  { grid-template-columns: 1fr; }
+  .lux-step         { border-right: none; border-bottom: 1px solid rgba(0,0,0,.07); }
+
+  .lux-photomq      { height: 160px; }
+
+  .lux-pm           { grid-template-columns: 1fr; max-height: 85vh; }
+  .product-modal-img { min-height: 180px; }
+
+  .lux-hero-creds   { gap: 0.75rem; }
+  .lux-cred-div     { display: none; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .lux-hero-slide,
+  .lux-marquee-track,
+  .lux-photomq-track,
+  [data-reveal],
+  .lux-scroll-line {
+    animation:  none !important;
+    transition: none !important;
+    opacity:    1 !important;
+    transform:  none !important;
+  }
+}
