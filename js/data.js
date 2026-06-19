@@ -233,6 +233,7 @@ CEYSAN.i18n = {
     stat_exp:        'Yıllık Deneyim',
     stat_proj:       'Tamamlanan Proje',
     stat_cat:        'Ürün Kategorisi',
+    stat_dist:       'İlçeye Hizmet',
     stat_sat:        'Müşteri Memnuniyeti',
     // Features
     feat_label:      'Neden CEYSAN?',
@@ -324,6 +325,7 @@ CEYSAN.i18n = {
     stat_exp:        'Years of Experience',
     stat_proj:       'Completed Projects',
     stat_cat:        'Product Categories',
+    stat_dist:       'Districts Served',
     stat_sat:        'Customer Satisfaction',
     feat_label:      'Why CEYSAN?',
     feat_title:      'Quality & Trust You Can Rely On',
