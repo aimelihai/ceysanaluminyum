@@ -420,17 +420,17 @@ h1,h2,h3,h4,h5,h6 {
   position: fixed;
   top: var(--hh);
   left: 50vw;
-  transform: translateX(-50%) translateY(14px);
-  width: 620px;
+  transform: translateX(-50%) translateY(16px);
+  width: 700px;
   max-width: calc(100vw - 2rem);
   background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 0 0 1px rgba(0,0,0,.08), 0 20px 60px rgba(8,14,28,.18);
-  padding: 1.25rem;
+  border-radius: 16px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.07), 0 24px 70px rgba(8,14,28,.22);
+  padding: 1.4rem;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity .2s ease, transform .2s ease, visibility 0s .2s;
+  transition: opacity .22s ease, transform .22s ease, visibility 0s .22s;
   z-index: 999;
 }
 
@@ -488,18 +488,18 @@ h1,h2,h3,h4,h5,h6 {
 .mmx-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 100px);
-  gap: .45rem;
+  grid-template-rows: repeat(2, 118px);
+  gap: .5rem;
 }
 
 .mmx-card {
   display: block !important;
   position: relative;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
   text-decoration: none !important;
   color: inherit !important;
-  background: #e8e8e8;
+  background: #e4e4e2;
 }
 
 .mmx-card--feat {
@@ -521,28 +521,29 @@ h1,h2,h3,h4,h5,h6 {
 .mmx-card-body {
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  padding: .5rem .65rem;
-  background: linear-gradient(transparent, rgba(0,0,0,.68));
+  padding: .6rem .75rem;
+  background: linear-gradient(transparent, rgba(0,0,0,.72) 100%);
   color: #fff;
 }
 
 .mmx-card-cat {
   display: block;
-  font-size: .5rem;
+  font-size: .55rem;
   font-weight: 700;
-  letter-spacing: .1em;
+  letter-spacing: .12em;
   text-transform: uppercase;
-  opacity: .65;
-  margin-bottom: .1rem;
+  opacity: .7;
+  margin-bottom: .15rem;
 }
 
 .mmx-card-body h3 {
-  font-size: .72rem;
+  font-size: .82rem;
   font-weight: 600;
   margin: 0;
   line-height: 1.2;
 }
-.mmx-card--feat .mmx-card-body h3 { font-size: .95rem; }
+.mmx-card--feat .mmx-card-body { padding: .75rem .9rem; }
+.mmx-card--feat .mmx-card-body h3 { font-size: 1.05rem; font-weight: 700; }
 
 /* Arrow icon top-right */
 .mmx-card-arrow {

@@ -567,7 +567,7 @@
     const grid = document.getElementById('homeGalleryGrid');
     if (!grid) return;
 
-    const items = CEYSAN.gallery.slice(0, 6);
+    const items = CEYSAN.gallery.slice(0, 5); // 4-col grid: featured(2×2) + 4 single = perfect fill
     grid.innerHTML = items.map((item, i) => {
       const cap = lang === 'tr' ? item.tr_cap : item.en_cap;
       return `
