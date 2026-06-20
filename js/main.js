@@ -713,49 +713,11 @@
     });
   }
 
-  /* ── Mega-menu v3 Interaction ────────────────────────────────── */
+  /* ── Mega-menu (mmx) Interaction ───────────────────────────────── */
   function initMegaMenu() {
-    const menu = document.getElementById('mm3');
+    const menu = document.getElementById('mmx');
     if (!menu) return;
-    const imgs      = menu.querySelectorAll('.mm3-img');
-    const rows      = menu.querySelectorAll('.mm3-row');
-    const catEl     = document.getElementById('mm3Cat');
-    const nameEl    = document.getElementById('mm3Name');
-    const descEl    = document.getElementById('mm3Desc');
-    const exploreEl = document.getElementById('mm3Explore');
-    let current   = 0;
-    let fadeTimer = null;
-
-    function activate(idx) {
-      if (idx === current) return;
-      imgs[current]?.classList.remove('active');
-      imgs[idx]?.classList.add('active');
-      rows[current]?.classList.remove('is-active');
-      rows[idx]?.classList.add('is-active');
-      const row = rows[idx];
-      if (row && catEl && nameEl && descEl) {
-        catEl.classList.add('fading');
-        nameEl.classList.add('fading');
-        descEl.classList.add('fading');
-        clearTimeout(fadeTimer);
-        fadeTimer = setTimeout(() => {
-          catEl.textContent  = row.dataset.cat  || '';
-          nameEl.textContent = row.dataset.name || '';
-          descEl.textContent = row.dataset.desc || '';
-          if (exploreEl) exploreEl.href = row.href;
-          catEl.classList.remove('fading');
-          nameEl.classList.remove('fading');
-          descEl.classList.remove('fading');
-        }, 200);
-      }
-      current = idx;
-    }
-
-    rows.forEach((row, i) => {
-      row.addEventListener('mouseenter', () => activate(i));
-    });
-    menu.addEventListener('mouseleave', () => activate(0));
-    rows[0]?.classList.add('is-active');
+    // CSS hover handles show/hide — nothing else needed for mmx card grid
   }
 
   /* ── Init All ────────────────────────────────────────────────── */

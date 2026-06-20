@@ -73,143 +73,77 @@
           ${t('nav_products')}
           <svg class="arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
         </a>
-        <div class="nav-dropdown mm3" id="mm3" role="navigation" aria-label="Ürün kategorileri">
-
-          <!-- LEFT: Görsel Sahne -->
-          <div class="mm3-stage">
-            <div class="mm3-imgs">
-              <img class="mm3-img active" src="https://ceysanaluminyum.com/resimler/urungrubu/urun_urungrubu_1730795591592836906.jpeg" alt="Cam Balkon">
-              <img class="mm3-img" src="https://ceysanaluminyum.com/resimler/urungrubu/urun_urungrubu_1730795825129986665.jfif" alt="Giyotin Cam Balkon">
-              <img class="mm3-img" src="https://ceysanaluminyum.com/resimler/urungrubu/urun_urungrubu_161925165814680.png" alt="Mimari Camlar">
-              <img class="mm3-img" src="https://ceysanaluminyum.com/resimler/urungrubu/urun_urungrubu_17307956391740415725.jpeg" alt="Estetik Cam">
-              <img class="mm3-img" src="https://ceysanaluminyum.com/resimler/urungrubu/urun_urungrubu_1730796158940348448.jpg" alt="Pimapen PVC Pencere">
-              <img class="mm3-img" src="https://ceysanaluminyum.com/resimler/urungrubu/urun_urungrubu_17307956391740415725.jpeg" alt="Alüminyum Doğrama">
-              <img class="mm3-img" src="https://ceysanaluminyum.com/resimler/urungrubu/urun_urungrubu_1730795703876593671.jfif" alt="Otomatik Pergole">
-              <img class="mm3-img" src="https://ceysanaluminyum.com/resimler/urungrubu/urun_urungrubu_17307954501627680637.jpeg" alt="Panjur Sistemleri">
-              <img class="mm3-img" src="https://ceysanaluminyum.com/resimler/urungrubu/urun_urungrubu_17307955081277983857.jpeg" alt="Otomatik Kepenk">
-              <img class="mm3-img" src="https://ceysanaluminyum.com/resimler/urungrubu/urun_urungrubu_17307960711012101376.jpeg" alt="Sineklik">
-              <img class="mm3-img" src="https://ceysanaluminyum.com/resimler/urungrubu/urun_urungrubu_17307960201811398340.jpg" alt="Banyo &amp; Hijyen">
-              <img class="mm3-img" src="https://ceysanaluminyum.com/resimler/urungrubu/urun_urungrubu_17307955081277983857.jpeg" alt="Ticari Kepenkler">
-            </div>
-            <div class="mm3-stage-over">
-              <div>
-                <span class="mm3-stage-cat" id="mm3Cat">CAM SİSTEMLERİ</span>
-                <strong class="mm3-stage-name" id="mm3Name">Cam Balkon</strong>
-                <p class="mm3-stage-desc" id="mm3Desc">Sürme ve katlanır cam sistemleri</p>
-              </div>
-              <a href="urunler.html#cam-balkon-sistemleri" class="mm3-explore" id="mm3Explore">
-                Keşfet
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </a>
-            </div>
+        <div class="mmx" id="mmx" role="navigation" aria-label="Ürün kategorileri">
+          <div class="mmx-head">
+            <span class="mmx-kicker">Ürün Aileleri</span>
+            <a href="urunler.html" class="mmx-all">Tüm Ürünler
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
           </div>
-
-          <!-- RIGHT: Ürün Dizini -->
-          <div class="mm3-dir">
-            <div class="mm3-dir-head">
-              <span class="mm3-dir-lbl">12 ÜRÜN KATEGORİSİ</span>
-              <a href="urunler.html" class="mm3-dir-all">
-                Tümünü Gör
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </a>
-            </div>
-
-            <div class="mm3-cols">
-              <!-- Kolon 1 -->
-              <div class="mm3-col">
-                <div class="mm3-grp">
-                  <p class="mm3-grp-ttl">Cam Sistemleri</p>
-                  <a href="urunler.html#cam-balkon-sistemleri" class="mm3-row" data-idx="0" data-cat="CAM SİSTEMLERİ" data-name="Cam Balkon" data-desc="Sürme ve katlanır cam sistemleri">
-                    <span class="mm3-n">01</span>
-                    <span class="mm3-label"><strong>Cam Balkon</strong><small>Sürme &amp; katlanır</small></span>
-                    <svg class="mm3-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                  </a>
-                  <a href="urunler.html#giyotin-cam-balkon-sistemleri" class="mm3-row" data-idx="1" data-cat="CAM SİSTEMLERİ" data-name="Giyotin Cam Balkon" data-desc="Yerden tavana panoramik görünüm">
-                    <span class="mm3-n">02</span>
-                    <span class="mm3-label"><strong>Giyotin Cam</strong><small>Yerden tavana</small></span>
-                    <svg class="mm3-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                  </a>
-                  <a href="urunler.html#isicam-sistemleri" class="mm3-row" data-idx="2" data-cat="CAM SİSTEMLERİ" data-name="Mimari Camlar" data-desc="Isıcam &amp; özel cam çözümleri">
-                    <span class="mm3-n">03</span>
-                    <span class="mm3-label"><strong>Mimari Camlar</strong><small>Isıcam &amp; özel</small></span>
-                    <svg class="mm3-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                  </a>
-                  <a href="urunler.html#aluminyum-dograma-sistemleri" class="mm3-row" data-idx="3" data-cat="CAM SİSTEMLERİ" data-name="Estetik Cam" data-desc="Alüminyum &amp; dekor cam çözümleri">
-                    <span class="mm3-n">04</span>
-                    <span class="mm3-label"><strong>Estetik Cam</strong><small>Dekor &amp; alüminyum</small></span>
-                    <svg class="mm3-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                  </a>
-                </div>
-                <div class="mm3-grp">
-                  <p class="mm3-grp-ttl">Pencere &amp; Doğrama</p>
-                  <a href="urunler.html#pimapen-pencere-sistemleri" class="mm3-row" data-idx="4" data-cat="PENCERE &amp; DOĞRAMA" data-name="Pimapen PVC Pencere" data-desc="Isı ve ses yalıtımlı çözümler">
-                    <span class="mm3-n">05</span>
-                    <span class="mm3-label"><strong>Pimapen PVC</strong><small>Isı &amp; ses yalıtımı</small></span>
-                    <svg class="mm3-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                  </a>
-                  <a href="urunler.html#aluminyum-dograma-sistemleri" class="mm3-row" data-idx="5" data-cat="PENCERE &amp; DOĞRAMA" data-name="Alüminyum Doğrama" data-desc="Estetik ve dayanıklı yapılar">
-                    <span class="mm3-n">06</span>
-                    <span class="mm3-label"><strong>Alüminyum Doğrama</strong><small>Dayanıklı &amp; estetik</small></span>
-                    <svg class="mm3-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                  </a>
-                </div>
+          <div class="mmx-grid">
+            <a class="mmx-card mmx-card--feat" href="urunler.html#cam-balkon-sistemleri">
+              <img src="https://ceysanaluminyum.com/resimler/urungrubu/urun_urungrubu_1730795591592836906.jpeg" alt="Cam Balkon" loading="lazy" onerror="this.src='https://ceysanaluminyum.com/resimler/urungrubu/resim_yok.png'">
+              <div class="mmx-card-body">
+                <span class="mmx-card-cat">Cam Sistemleri</span>
+                <h3>Cam Balkon</h3>
               </div>
-
-              <div class="mm3-vdiv"></div>
-
-              <!-- Kolon 2 -->
-              <div class="mm3-col">
-                <div class="mm3-grp">
-                  <p class="mm3-grp-ttl">Dış Mekan</p>
-                  <a href="urunler.html#otomatik-pergole-sistemleri" class="mm3-row" data-idx="6" data-cat="DIŞ MEKAN" data-name="Otomatik Pergole" data-desc="Motorlu gölgeleme sistemleri">
-                    <span class="mm3-n">07</span>
-                    <span class="mm3-label"><strong>Otomatik Pergole</strong><small>Motorlu gölgeleme</small></span>
-                    <svg class="mm3-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                  </a>
-                  <a href="urunler.html#panjur-sistemleri" class="mm3-row" data-idx="7" data-cat="DIŞ MEKAN" data-name="Panjur Sistemleri" data-desc="Konfor &amp; ısı yalıtımı">
-                    <span class="mm3-n">08</span>
-                    <span class="mm3-label"><strong>Panjur Sistemleri</strong><small>Konfor &amp; yalıtım</small></span>
-                    <svg class="mm3-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                  </a>
-                  <a href="urunler.html#otomatik-kepenk-sistemleri" class="mm3-row" data-idx="8" data-cat="DIŞ MEKAN" data-name="Otomatik Kepenk" data-desc="Güvenlik &amp; hız kepenkleri">
-                    <span class="mm3-n">09</span>
-                    <span class="mm3-label"><strong>Otomatik Kepenk</strong><small>Güvenlik &amp; hız</small></span>
-                    <svg class="mm3-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                  </a>
-                </div>
-                <div class="mm3-grp">
-                  <p class="mm3-grp-ttl">Ev &amp; Yaşam</p>
-                  <a href="sineklik-siparis.html" class="mm3-row" data-idx="9" data-cat="EV &amp; YAŞAM" data-name="Sineklik Sistemleri" data-desc="Sipariş ver, montaj bizden">
-                    <span class="mm3-n">10</span>
-                    <span class="mm3-label"><strong>Sineklik</strong><small>Sipariş &amp; montaj</small></span>
-                    <svg class="mm3-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                  </a>
-                  <a href="urunler.html#dusakabin-sistemleri" class="mm3-row" data-idx="10" data-cat="EV &amp; YAŞAM" data-name="Banyo &amp; Hijyen" data-desc="Duşakabin &amp; temperli cam">
-                    <span class="mm3-n">11</span>
-                    <span class="mm3-label"><strong>Banyo &amp; Hijyen</strong><small>Duşakabin &amp; temperli</small></span>
-                    <svg class="mm3-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                  </a>
-                  <a href="urunler.html#otomatik-kepenk-sistemleri" class="mm3-row" data-idx="11" data-cat="EV &amp; YAŞAM" data-name="Ticari Kepenkler" data-desc="Güvenlik kepenkleri">
-                    <span class="mm3-n">12</span>
-                    <span class="mm3-label"><strong>Ticari Kepenkler</strong><small>Güvenlik kepenkleri</small></span>
-                    <svg class="mm3-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                  </a>
-                </div>
+              <svg class="mmx-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </a>
+            <a class="mmx-card" href="urunler.html#giyotin-cam-balkon-sistemleri">
+              <img src="https://ceysanaluminyum.com/resimler/urungrubu/urun_urungrubu_1730795825129986665.jfif" alt="Giyotin Cam" loading="lazy" onerror="this.src='https://ceysanaluminyum.com/resimler/urungrubu/resim_yok.png'">
+              <div class="mmx-card-body">
+                <span class="mmx-card-cat">Cam Sistemleri</span>
+                <h3>Giyotin Cam</h3>
               </div>
-            </div>
-
-            <div class="mm3-foot">
-              <a href="teklif.html" class="mm3-btn-pri">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
-                Ücretsiz Keşif
-              </a>
-              <a href="https://wa.me/902165205734" target="_blank" rel="noopener" class="mm3-btn-sec">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                WhatsApp
-              </a>
-            </div>
+              <svg class="mmx-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </a>
+            <a class="mmx-card" href="urunler.html#pimapen-pencere-sistemleri">
+              <img src="https://ceysanaluminyum.com/resimler/urungrubu/urun_urungrubu_1730796158940348448.jpg" alt="Pimapen Pencere" loading="lazy" onerror="this.src='https://ceysanaluminyum.com/resimler/urungrubu/resim_yok.png'">
+              <div class="mmx-card-body">
+                <span class="mmx-card-cat">Pencere &amp; Doğrama</span>
+                <h3>Pimapen Pencere</h3>
+              </div>
+              <svg class="mmx-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </a>
+            <a class="mmx-card" href="urunler.html#aluminyum-dograma-sistemleri">
+              <img src="https://ceysanaluminyum.com/resimler/urungrubu/urun_urungrubu_17307956391740415725.jpeg" alt="Alüminyum Doğrama" loading="lazy" onerror="this.src='https://ceysanaluminyum.com/resimler/urungrubu/resim_yok.png'">
+              <div class="mmx-card-body">
+                <span class="mmx-card-cat">Pencere &amp; Doğrama</span>
+                <h3>Alüminyum Doğrama</h3>
+              </div>
+              <svg class="mmx-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </a>
+            <a class="mmx-card" href="urunler.html#otomatik-pergole-sistemleri">
+              <img src="https://ceysanaluminyum.com/resimler/urungrubu/urun_urungrubu_1730795703876593671.jfif" alt="Otomatik Pergole" loading="lazy" onerror="this.src='https://ceysanaluminyum.com/resimler/urungrubu/resim_yok.png'">
+              <div class="mmx-card-body">
+                <span class="mmx-card-cat">Dış Mekan</span>
+                <h3>Otomatik Pergole</h3>
+              </div>
+              <svg class="mmx-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </a>
+            <a class="mmx-card" href="urunler.html#panjur-sistemleri">
+              <img src="https://ceysanaluminyum.com/resimler/urungrubu/urun_urungrubu_17307954501627680637.jpeg" alt="Panjur &amp; Kepenk" loading="lazy" onerror="this.src='https://ceysanaluminyum.com/resimler/urungrubu/resim_yok.png'">
+              <div class="mmx-card-body">
+                <span class="mmx-card-cat">Dış Mekan</span>
+                <h3>Panjur &amp; Kepenk</h3>
+              </div>
+              <svg class="mmx-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </a>
+            <a class="mmx-card" href="sineklik-siparis.html">
+              <img src="https://ceysanaluminyum.com/resimler/urungrubu/urun_urungrubu_17307960711012101376.jpeg" alt="Sineklik" loading="lazy" onerror="this.src='https://ceysanaluminyum.com/resimler/urungrubu/resim_yok.png'">
+              <div class="mmx-card-body">
+                <span class="mmx-card-cat">Ev &amp; Yaşam</span>
+                <h3>Sineklik</h3>
+              </div>
+              <svg class="mmx-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </a>
           </div>
-
+          <div class="mmx-foot">
+            <span class="mmx-foot-note">Ücretsiz keşif &amp; yerinde ölçüm — İstanbul geneli</span>
+            <a href="teklif.html" class="mmx-foot-cta">Hemen Teklif Alın
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
         </div>
       </div>
 
