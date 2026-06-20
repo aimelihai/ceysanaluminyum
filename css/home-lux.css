@@ -685,12 +685,12 @@ body.home-lux .hero-content {
    ---------------------------------------------------------------- */
 .why-ceysan {
   background: var(--lux-ink);
-  padding:    5.5rem 0;
+  padding:    3rem 0;
 }
 
 .why-ceysan-header {
   text-align:    center;
-  margin-bottom: 3.5rem;
+  margin-bottom: 2rem;
 }
 
 .why-label {
@@ -737,7 +737,7 @@ body.home-lux .hero-content {
 }
 
 .why-card {
-  padding:          2.5rem 2rem;
+  padding:          1.5rem 1.5rem;
   background:       var(--lux-ink);
   position:         relative;
   z-index:          1;
@@ -747,11 +747,11 @@ body.home-lux .hero-content {
 
 .why-card-num {
   font-family:    var(--lux-serif);
-  font-size:      3rem;
+  font-size:      2rem;
   font-weight:    300;
   color:          rgba(255,255,255,.06);
   line-height:    1;
-  margin-bottom:  1.25rem;
+  margin-bottom:  0.75rem;
 }
 
 .why-card-title {
@@ -924,20 +924,29 @@ body.home-lux .hero-content {
   display:    grid;
   grid-template-columns: 1fr 38%;
   gap:        3px;
-  min-height: 540px;
 }
 
 .lux-index-list {
-  background: var(--lux-cream);
-  display:    flex;
+  background:  var(--lux-cream);
+  display:     flex;
   flex-direction: column;
+  max-height:  420px;
+  overflow-y:  auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--lux-gold-dark) transparent;
+}
+
+.lux-index-list::-webkit-scrollbar { width: 3px; }
+.lux-index-list::-webkit-scrollbar-thumb {
+  background: var(--lux-gold-dark);
+  border-radius: 2px;
 }
 
 .lux-index-row {
   display:         flex;
   align-items:     center;
   gap:             1.25rem;
-  padding:         1rem 1.5rem;
+  padding:         0.55rem 1.25rem;
   text-decoration: none;
   color:           inherit;
   border-bottom:   1px solid rgba(0,0,0,.06);
@@ -1260,7 +1269,14 @@ body.home-lux .hero-content {
   [data-reveal] { opacity: 1 !important; transform: none !important; }
 }
 
-/* ── 16. RESPONSIVE ──────────────────────────────────────────── */
+/* ── 16. COMPACT SECTION OVERRIDES ──────────────────────────────
+   Reduce section padding so sections fit better in viewport
+   ---------------------------------------------------------------- */
+body.home-lux .cex-section     { padding-block: 2rem; }
+body.home-lux .gallery-preview-section { padding-block: 2rem; }
+body.home-lux .gallery-grid    { grid-auto-rows: 160px; }
+
+/* ── 17. RESPONSIVE ──────────────────────────────────────────── */
 
 /* Tablet */
 @media (max-width: 1024px) {
