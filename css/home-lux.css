@@ -1278,9 +1278,11 @@ body.home-lux .cex-section     { padding-block: 2rem; }
 body.home-lux .gallery-preview-section { padding-block: 1.5rem; }
 body.home-lux .gallery-grid {
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 108px;
+  grid-auto-rows: 112px;
   gap: 7px;
 }
+/* Remove base min-height that overrides grid row track sizes */
+body.home-lux .gallery-grid .gallery-item { min-height: unset; }
 /* Section header tighter */
 body.home-lux .gallery-preview-section .section-header {
   margin-bottom: 1.1rem;
