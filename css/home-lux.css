@@ -27,7 +27,7 @@ body.home-lux .hero {
   position:   relative;
   min-height: 100svh;
   display:    flex;
-  align-items: flex-start;
+  align-items: center;
   overflow:   hidden;
   isolation:  isolate;
 }
@@ -71,11 +71,13 @@ body.home-lux .hero-bg-overlay {
   z-index:          1;
 }
 
-/* Content positioning */
+/* Content positioning — override base padding/alignment */
 body.home-lux .hero-content {
-  position:  relative;
-  z-index:   3;
-  width:     100%;
+  position:          relative;
+  z-index:           3;
+  width:             100%;
+  padding-block-start: calc(var(--hh) + 1rem); /* 72+16=88px (base is 136px) */
+  align-items:       start;                     /* don't re-center vertically */
 }
 
 .lux-hero-content .container {
@@ -85,7 +87,7 @@ body.home-lux .hero-content {
 
 .lux-hero-text {
   max-width:  680px;
-  padding:    clamp(5.5rem, 14vh, 8rem) 0 clamp(5rem, 10vh, 8rem);
+  padding:    clamp(1rem, 2vh, 1.5rem) 0 clamp(5rem, 10vh, 8rem);
 }
 
 /* ── Kicker (eyebrow label) ──────────────────────────────────── */
