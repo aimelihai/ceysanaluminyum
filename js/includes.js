@@ -121,22 +121,6 @@
               </div>
               <svg class="mmx-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
             </a>
-            <a class="mmx-card" href="urunler.html#panjur-sistemleri">
-              <img src="https://ceysanaluminyum.com/resimler/urungrubu/urun_urungrubu_17307954501627680637.jpeg" alt="Panjur &amp; Kepenk" loading="lazy" onerror="this.src='https://ceysanaluminyum.com/resimler/urungrubu/resim_yok.png'">
-              <div class="mmx-card-body">
-                <span class="mmx-card-cat">Dış Mekan</span>
-                <h3>Panjur &amp; Kepenk</h3>
-              </div>
-              <svg class="mmx-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-            </a>
-            <a class="mmx-card" href="sineklik-siparis.html">
-              <img src="https://ceysanaluminyum.com/resimler/urungrubu/urun_urungrubu_17307960711012101376.jpeg" alt="Sineklik" loading="lazy" onerror="this.src='https://ceysanaluminyum.com/resimler/urungrubu/resim_yok.png'">
-              <div class="mmx-card-body">
-                <span class="mmx-card-cat">Ev &amp; Yaşam</span>
-                <h3>Sineklik</h3>
-              </div>
-              <svg class="mmx-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-            </a>
           </div>
           <div class="mmx-foot">
             <span class="mmx-foot-note">Ücretsiz keşif &amp; yerinde ölçüm — İstanbul geneli</span>
