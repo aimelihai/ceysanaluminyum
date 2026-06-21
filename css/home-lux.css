@@ -85,7 +85,7 @@ body.home-lux .hero-content {
 
 .lux-hero-text {
   max-width:  680px;
-  padding:    clamp(4rem, 10vh, 5.5rem) 0 clamp(5rem, 10vh, 8rem);
+  padding:    clamp(5.5rem, 14vh, 8rem) 0 clamp(5rem, 10vh, 8rem);
 }
 
 /* ── Kicker (eyebrow label) ──────────────────────────────────── */
